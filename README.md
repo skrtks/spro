@@ -26,11 +26,12 @@ Als een resultaat op het beginscherm of op de resultatenpagina wordt geselecteer
 In de kaartweergave wordt de locatie van het koffiezaakje op de kaart weergeven. Ook wordt de huidige locatie van de gebruiker weergegeven. 
 
 ### Belangrijkste functies
-- Direct laten zien van drie koffiezaakjes in de buurt (MVP).
+- Direct laten zien van drie koffiezaakjes in de buurt en hoeveel minuten het lopen is naar die plekken (MVP).
 - Zoeken naar koffiezaakjes op andere locaties dan de huidige.
 - Het verkrijgen van meer informatie, zoals openingstijden, foto’s en recenties, in de detailweergave (MVP). 
 - De locatie van het koffiezaakje bekijken op een kaart (MVP).
-- Een routebeschrijving aanvragen in Apple Maps (MVP).
+- De route laten zien van de huidige locatie naar de bestemming (MVP).
+- Een turn-by-turn routebeschrijving aanvragen in Apple Maps (MVP).
 
 ### Optionele functie
 - Indicatie in de detailweergave waarop te zien is of een koffiezaakje fotogeniek is. Op basis van het gemiddelde aantal instagram posts op die locatie. 
