@@ -49,6 +49,7 @@ In de onderstaande screenshots is te zien dat Apple Maps en Google Maps een groo
 ![](doc/GoogleMaps.PNG) _Google Maps_
 
 Als in google maps een resultaat geselecteerd wordt, komt een overzicht tevoorschijn dat erg duidelijk is. Ik wil deze pagina graag als voorbeeld nemen voor deze app. Het is prettig dat de belangrijke informatie in een keer beschikbaar is. Dit is te zien op de onderstaande afbeelding. 
+
 ![](doc/GoogleDetail.jpeg)
 
 Ik verwacht dat het moeilijkste deel van de implementatie het implementeren van de kaart wordt. In het bijzonder het laten zien van een marker die ook nog wat informatie, zoals de afstand tot de gebruiker, laat zien. Daarnaast denk ik dat het nog vrij lastig zal zijn om de UI echt duidelijk te houden. 
