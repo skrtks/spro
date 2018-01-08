@@ -43,12 +43,10 @@ Optioneel is het bepalen of een koffiezaakje fotogeniek is aan de hand van het a
 Een aantal voorbeelden van apps die ongeveer het zelfde doen als deze app zijn Apple Maps, Google Maps, Foursquare en Yelp. Deze apps doen allemaal ongeveer het zelfde, maar op net een andere manier. Wat bij alle apps opvalt, is dat ze vrij veel resultaten laten zien.  Ook resultaten die vrij ver zijn. In deze app is het de bedoeling om de gebruiker niet te overweldigen met resultaten. 
 
 In de onderstaande screenshots is te zien dat Apple Maps en Google Maps een groot aantal resultaten laten zien. 
-![](doc/AppleMaps.PNG)
 
-_Apple Maps_
-![](doc/GoogleMaps.PNG)
+![](doc/AppleMaps.PNG) _Apple Maps_
 
-_Google Maps_
+![](doc/GoogleMaps.PNG) _Google Maps_
 
 Als in google maps een resultaat geselecteerd wordt, komt een overzicht tevoorschijn dat erg duidelijk is. Ik wil deze pagina graag als voorbeeld nemen voor deze app. Het is prettig dat de belangrijke informatie in een keer beschikbaar is. Dit is te zien op de onderstaande afbeelding. 
 ![](doc/GoogleDetail.jpeg)
