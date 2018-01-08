@@ -9,7 +9,7 @@ Hou je van [”specialty coffee”](https://en.wikipedia.org/wiki/Specialty_coff
 Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaakjes op loopafstand van je huidige locatie zien, zodat je makkelijk een keuze kunt maken. 
 
 ### Impressie
-![](doc/sproConceptHome.jpg)
+![](doc/sproConceptHome.jpg =250x)
 Op de eerste afbeelding is het beginscherm te zien. Dit scherm wordt getoond zodra de app wordt geopend. Op het beginscherm worden de drie dichtstbijzijnde koffiezaakjes weergegeven. Daarnaast is er de mogelijkheid om een zoekactie te doen voor een andere locatie dan de huidige. 
 
 ![](sproConcept%20(dragged)-1.pdf "Results view")
