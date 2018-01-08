@@ -53,4 +53,4 @@ Als in google maps een resultaat geselecteerd wordt, komt een overzicht tevoorsc
 
 ![](doc/GoogleDetail.jpeg)
 
-Ik verwacht dat het moeilijkste deel van de implementatie het implementeren van de kaart wordt. In het bijzonder het laten zien van een marker die ook nog wat informatie, zoals de afstand tot de gebruiker, laat zien. Daarnaast denk ik dat het nog vrij lastig zal zijn om de UI echt duidelijk te houden. 
+Ik verwacht dat het moeilijkste deel van de implementatie het implementeren van de kaart wordt. In het bijzonder het laten zien van een marker die ook nog wat informatie, zoals de afstand tot de gebruiker, laat zien. De documentatie hiervoor is gelukkig heel uitgebreid. 
