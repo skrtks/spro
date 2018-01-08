@@ -10,15 +10,19 @@ Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaak
 
 ### Impressie
 ![](doc/sproConceptHome.jpg)
+
 Op de eerste afbeelding is het beginscherm te zien. Dit scherm wordt getoond zodra de app wordt geopend. Op het beginscherm worden de drie dichtstbijzijnde koffiezaakjes weergegeven. Daarnaast is er de mogelijkheid om een zoekactie te doen voor een andere locatie dan de huidige. 
 
 ![](doc/sproConceptResults.jpg)
+
 Op de resultatenpagina worden de resultaten voor een andere locatie weergegeven. 
 
 ![](doc/sproConceptDetail.jpg)
+
 Als een resultaat op het beginscherm of op de resultatenpagina wordt geselecteerd dan wordt het detailscherm getoond. Op dit scherm is wat basisinformatie te zien over het koffiezaakje. Daarnaast worden een aantal reviews weergegeven. De knop “Directions” brengt de gebruiker naar de Apple Maps applicatie waar een routebeschrijving wordt gestart. De “View on map” knop brengt de gebruiker naar een nieuw scherm waar de locatie op de kaart wordt weergegeven. 
 
 ![](doc/sproConceptMap.jpg)
+
 In de kaartweergave wordt de locatie van het koffiezaakje op de kaart weergeven. Ook wordt de huidige locatie van de gebruiker weergegeven. 
 
 ### Belangrijkste functies
@@ -40,11 +44,13 @@ Een aantal voorbeelden van apps die ongeveer het zelfde doen als deze app zijn A
 
 In de onderstaande screenshots is te zien dat Apple Maps en Google Maps een groot aantal resultaten laten zien. 
 ![](doc/AppleMaps.png)
+
 _Apple Maps_
 ![](doc/GoogleMaps.png)
+
 _Google Maps_
 
 Als in google maps een resultaat geselecteerd wordt, komt een overzicht tevoorschijn dat erg duidelijk is. Ik wil deze pagina graag als voorbeeld nemen voor deze app. Het is prettig dat de belangrijke informatie in een keer beschikbaar is. Dit is te zien op de onderstaande afbeelding. 
-![](GoogleDetail.jpeg)
+![](doc/GoogleDetail.jpeg)
 
 Ik verwacht dat het moeilijkste deel van de implementatie het implementeren van de kaart wordt. In het bijzonder het laten zien van een marker die ook nog wat informatie, zoals de afstand tot de gebruiker, laat zien. Daarnaast denk ik dat het nog vrij lastig zal zijn om de UI echt duidelijk te houden. 
