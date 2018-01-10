@@ -3,7 +3,7 @@ Sam Kortekaas - 10718095
 Programmeerpoject semester 1 2017-2018
 
 ## Advanced sketch
-![](doc/sproAdvancedScetch.jpg)
+![](doc/sproAdvancedSketch.jpg)
 ## Code indeling
 ### Utility modules
 Utility modules zijn klassen die code bevatten voor het doen van taken die niet thuishoren in de UI controllers. In het geval van deze app zal dat het praten met de Foursquare API zijn. Daarnaast kies ik er ook voor om een klasse te maken die code bevat voor locatie en route doeleinden. Deze klassen komen in twee swift bestanden: FoursquareApiFunctions.swift en GeoFunctions.swift.
