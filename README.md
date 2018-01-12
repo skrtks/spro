@@ -1,4 +1,5 @@
 # Project voorstel SPRO
+[![BCH compliance](https://bettercodehub.com/edge/badge/skrtks/spro?branch=master)](https://bettercodehub.com/)
 Sam Kortekaas - 10718095
 Programmeerpoject semester 1 2017-2018
 
