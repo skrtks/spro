@@ -16,4 +16,4 @@ Als laatste ben ik bezig geweest met het aanpassen van de kleur van de tekst van
 	}
 Ik heb een test App’je van GitHub gehaald en hier werd deze code, maar in mijn eigen project niet… Marijn kon er ook niet achter komen.
 
-![](doc/StatusBar.PNG)
+![](doc/StatusBar.png)
