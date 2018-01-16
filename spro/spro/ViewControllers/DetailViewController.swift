@@ -24,7 +24,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var venueId: String!
     var image: UIImage!
     var venueDetails = [String: JSON]()
-    var currentLocation: CLLocationCoordinate2D!
+    var venueLocation: CLLocation!
+    var currentLocation: CLLocation!
     
 
     override func viewDidLoad() {
@@ -61,17 +62,26 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
         
         // set required CLLocations
-        let VenueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
-        let VenueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
-        let VenueLocation = CLLocation(latitude: VenueLat, longitude: VenueLon)
-        let myLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
+        let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
+        venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
         
         //Measuring distance from my location to venue
-        self.distanceLabel.text = String(Int(myLocation.distance(from: VenueLocation))) + " meters"
+        self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
         
+        // Set the image
         if let image = image {
             venueImage.image = image
-            print(image)
+        }
+    }
+    
+    // Prepare for segue to map view.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToMap" {
+            let mapViewController = segue.destination as! MapViewController
+            mapViewController.venueLocation = venueLocation
+            mapViewController.currentLocation = currentLocation
+            mapViewController.venueName = venueDetails["venue"]!["name"].stringValue
         }
     }
     

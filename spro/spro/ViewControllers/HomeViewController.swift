@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var photoSuffix: String!
     var barImageList = [UIImage]()
     let locationManager = CLLocationManager()
-    var currentLocation: CLLocationCoordinate2D!
+    var currentLocation: CLLocation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,14 +55,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Request the current location
         if currentLocation == nil {
-            currentLocation = locationManager.location?.coordinate
+            currentLocation = locationManager.location
             locationManager.stopUpdatingLocation()
         }
         
         // Request data from API
         if let currentLocation = currentLocation {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            RequestController.shared.getCoffeeBars(lat: currentLocation.latitude, lon: currentLocation.longitude) { (coffeeBars) in
+            RequestController.shared.getCoffeeBars(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (coffeeBars) in
                 self.venueList = coffeeBars
                 DispatchQueue.main.async {
                     self.updateUI()
@@ -87,6 +87,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Pass along venue and location information.
             detailViewController.venueId = venueList[indexPath]["venue"]["id"].stringValue
             detailViewController.currentLocation = currentLocation
+            
         }
     }
     
@@ -107,13 +108,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
         
         // set required CLLocations
-        let VenueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
-        let VenueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
-        let VenueLocation = CLLocation(latitude: VenueLat, longitude: VenueLon)
-        let myLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let venueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
+        let venueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
+        let venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
         
         //Measuring distance from my location to venue
-        cell.distanceLabel.text = String(Int(myLocation.distance(from: VenueLocation))) + " meters"
+        cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
         
         
         let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue

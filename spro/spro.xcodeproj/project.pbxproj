@@ -18,6 +18,7 @@
 		22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBD22007818D0066304D /* ResultTableViewController.swift */; };
 		22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */; };
 		22ED0B40200A216D00626F5E /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */; };
+		22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE6435200E2890003B0D1C /* VenueAnnotation.swift */; };
 		22FECC6A200CFE8F00F79E5B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FECC69200CFE8F00F79E5B /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		22BEDBD22007818D0066304D /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		22EE6435200E2890003B0D1C /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
 		22FECC69200CFE8F00F79E5B /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +74,7 @@
 				22BEDBBC2007811A0066304D /* AppDelegate.swift */,
 				22F11D20200CE7D600953607 /* ViewControllers */,
 				22F11D21200CE7E600953607 /* NetworkCode */,
-				22F11D22200CE82800953607 /* CustomCells */,
+				22F11D22200CE82800953607 /* Objects */,
 				22F11D23200CE84D00953607 /* Layout */,
 				22BEDBC32007811A0066304D /* Assets.xcassets */,
 				22BEDBC82007811A0066304D /* Info.plist */,
@@ -107,13 +109,14 @@
 			path = NetworkCode;
 			sourceTree = "<group>";
 		};
-		22F11D22200CE82800953607 /* CustomCells */ = {
+		22F11D22200CE82800953607 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
 				22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */,
 				22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */,
+				22EE6435200E2890003B0D1C /* VenueAnnotation.swift */,
 			);
-			path = CustomCells;
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		22F11D23200CE84D00953607 /* Layout */ = {
@@ -206,6 +209,7 @@
 				22BEDBCF200781730066304D /* DetailViewController.swift in Sources */,
 				22BEDBBF2007811A0066304D /* HomeViewController.swift in Sources */,
 				22FECC6A200CFE8F00F79E5B /* SwiftyJSON.swift in Sources */,
+				22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */,
 				222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */,
 				22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */,
 				22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */,
