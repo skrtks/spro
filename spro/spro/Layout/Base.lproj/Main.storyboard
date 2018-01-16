@@ -234,9 +234,6 @@
                                     <constraint firstAttribute="width" secondItem="BkA-DU-q7k" secondAttribute="height" multiplier="125:64" id="1CJ-8D-JDL"/>
                                 </constraints>
                             </imageView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="s9M-HZ-P99">
-                                <rect key="frame" x="168" y="155" width="39" height="37"/>
-                            </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwL-X7-dyl">
                                 <rect key="frame" x="16" y="200" width="321" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
@@ -267,13 +264,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tT9-tJ-EMp">
+                                <rect key="frame" x="239" y="291" width="98" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Directions"/>
+                                <connections>
+                                    <segue destination="nuk-sH-CRT" kind="show" identifier="segueToMap" id="Lc7-mT-HJL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cwL-X7-dyl" firstAttribute="top" secondItem="BkA-DU-q7k" secondAttribute="bottom" constant="8" id="0cb-KO-j9B"/>
-                            <constraint firstItem="s9M-HZ-P99" firstAttribute="top" secondItem="YAg-GH-Jbh" secondAttribute="top" constant="91" id="1jN-Zs-cSU"/>
                             <constraint firstItem="YAg-GH-Jbh" firstAttribute="trailing" secondItem="C2X-mH-Lpv" secondAttribute="trailing" constant="38" id="1ro-ge-vDH"/>
-                            <constraint firstItem="cwL-X7-dyl" firstAttribute="top" secondItem="s9M-HZ-P99" secondAttribute="bottom" constant="8" symbolic="YES" id="2t8-Cq-iNP"/>
                             <constraint firstItem="YAg-GH-Jbh" firstAttribute="trailing" secondItem="cwL-X7-dyl" secondAttribute="trailing" constant="38" id="6QN-g3-VpW"/>
                             <constraint firstItem="gv7-Fq-adU" firstAttribute="leading" secondItem="YAg-GH-Jbh" secondAttribute="leading" constant="16" id="939-1k-cVP"/>
                             <constraint firstItem="BkA-DU-q7k" firstAttribute="top" secondItem="G89-Zf-iNz" secondAttribute="top" id="Emi-R6-CHk"/>
@@ -284,7 +287,6 @@
                             <constraint firstItem="YYP-5Z-6B6" firstAttribute="top" secondItem="1PL-xX-Whu" secondAttribute="bottom" constant="8" id="biM-Eg-JA2"/>
                             <constraint firstItem="fbN-VW-A1n" firstAttribute="leading" secondItem="YAg-GH-Jbh" secondAttribute="leading" constant="16" id="ezK-kO-HIO"/>
                             <constraint firstItem="BkA-DU-q7k" firstAttribute="leading" secondItem="YAg-GH-Jbh" secondAttribute="leading" id="hFy-7w-no3"/>
-                            <constraint firstItem="YAg-GH-Jbh" firstAttribute="trailing" secondItem="s9M-HZ-P99" secondAttribute="trailing" constant="168" id="iwI-Rp-OSq"/>
                             <constraint firstItem="1PL-xX-Whu" firstAttribute="top" secondItem="fbN-VW-A1n" secondAttribute="bottom" constant="4" id="jTC-ep-OsG"/>
                             <constraint firstItem="gv7-Fq-adU" firstAttribute="top" secondItem="C2X-mH-Lpv" secondAttribute="bottom" constant="8" id="kfP-dX-Pv4"/>
                             <constraint firstItem="YAg-GH-Jbh" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1PL-xX-Whu" secondAttribute="trailing" id="pZL-cp-bay"/>
@@ -294,7 +296,6 @@
                             <constraint firstItem="cwL-X7-dyl" firstAttribute="leading" secondItem="YAg-GH-Jbh" secondAttribute="leading" constant="16" id="w5k-2F-T4E"/>
                             <constraint firstItem="BkA-DU-q7k" firstAttribute="trailing" secondItem="YAg-GH-Jbh" secondAttribute="trailing" id="x3f-PZ-mDN"/>
                             <constraint firstItem="1PL-xX-Whu" firstAttribute="leading" secondItem="G89-Zf-iNz" secondAttribute="leading" constant="16" id="xKP-Rq-hfY"/>
-                            <constraint firstItem="s9M-HZ-P99" firstAttribute="leading" secondItem="YAg-GH-Jbh" secondAttribute="leading" constant="168" id="z1j-g7-Nvp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YAg-GH-Jbh"/>
                     </view>
@@ -302,7 +303,6 @@
                         <outlet property="adressLabel" destination="fbN-VW-A1n" id="a5X-X6-mxe"/>
                         <outlet property="distanceLabel" destination="C2X-mH-Lpv" id="h7v-8l-Ioh"/>
                         <outlet property="hoursLabel" destination="1PL-xX-Whu" id="PzC-JF-Uvh"/>
-                        <outlet property="imagePageIndicator" destination="s9M-HZ-P99" id="Zaf-V4-pEh"/>
                         <outlet property="nameLabel" destination="cwL-X7-dyl" id="Ikh-Hg-CdV"/>
                         <outlet property="ratingLabel" destination="gv7-Fq-adU" id="v0u-ab-5qC"/>
                         <outlet property="reviewTable" destination="YYP-5Z-6B6" id="VbS-IS-2OD"/>
@@ -321,14 +321,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="d5N-A0-5Rg">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="d5N-A0-5Rg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="d5N-A0-5Rg" firstAttribute="bottom" secondItem="UFQ-5S-9es" secondAttribute="bottom" id="ScX-ZD-ggL"/>
+                            <constraint firstItem="d5N-A0-5Rg" firstAttribute="trailing" secondItem="UFQ-5S-9es" secondAttribute="trailing" id="bXl-Bx-vkr"/>
+                            <constraint firstItem="d5N-A0-5Rg" firstAttribute="leading" secondItem="UFQ-5S-9es" secondAttribute="leading" id="dI7-lh-LF3"/>
+                            <constraint firstItem="d5N-A0-5Rg" firstAttribute="top" secondItem="klx-Wi-BXr" secondAttribute="top" id="kYo-Lh-LJJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UFQ-5S-9es"/>
                     </view>
+                    <connections>
+                        <outlet property="MapView" destination="d5N-A0-5Rg" id="CSG-dQ-PvP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dt3-ye-tf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

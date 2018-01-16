@@ -19,14 +19,18 @@ class RequestController {
     static let shared = RequestController()
     
     
-    func getCoffeeBars(completion: @escaping ([JSON]) -> Void) {
+    func getCoffeeBars(lat: Double, lon: Double, completion: @escaping ([JSON]) -> Void) {
         var coffeeBars = [JSON]()
-        let url = URL(string: "https://api.foursquare.com/v2/search/recommendations?ll=\(52.376979),\(4.899694)&v=20180113&limit=3&query=specialty+coffee&client_id=\(client_id)&client_secret=\(client_secret)")!
+        let url = URL(string: "https://api.foursquare.com/v2/search/recommendations?ll=\(lat),\(lon)&v=20180113&limit=3&query=specialty+coffee&client_id=\(client_id)&client_secret=\(client_secret)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
-            let json = JSON(data: data!)
-            coffeeBars = json["response"]["group"]["results"].arrayValue
-            completion(coffeeBars)
+            if let data = data {
+                let json = JSON(data: data)
+                coffeeBars = json["response"]["group"]["results"].arrayValue
+                completion(coffeeBars)
+            } else {
+                print("Error getting data from API")
+            }
         })
         task.resume()
     }
@@ -36,15 +40,19 @@ class RequestController {
         let url = URL(string: "https://api.foursquare.com/v2/venues/\(venueId)?&v=20180113&client_id=\(client_id)&client_secret=\(client_secret)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
-            let json = JSON(data: data!)
-            venueDetails = json["response"]["venue"].dictionaryValue
-            completion(venueDetails)
+            if let data = data {
+                let json = JSON(data: data)
+                venueDetails = json["response"].dictionaryValue
+                completion(venueDetails)
+            } else {
+                print("Error getting data from API")
+            }
         })
         task.resume()
     }
     
     func getImage(suffix: String, completion: @escaping (UIImage?) -> Void) {
-        var url = URL(string: "https://igx.4sqi.net/img/general/300x300")!
+        var url = URL(string: "https://igx.4sqi.net/img/general/500x500")!
         
         url.appendPathComponent(suffix)
         

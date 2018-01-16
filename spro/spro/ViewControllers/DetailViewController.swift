@@ -8,11 +8,11 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var venueImage: UIImageView!
-    @IBOutlet weak var imagePageIndicator: UIPageControl!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -24,6 +24,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var venueId: String!
     var image: UIImage!
     var venueDetails = [String: JSON]()
+    var currentLocation: CLLocationCoordinate2D!
     
 
     override func viewDidLoad() {
@@ -31,23 +32,21 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         RequestController.shared.getDetails(venueId: venueId) { (details) in
             self.venueDetails = details
-            let suffix = self.venueDetails["photos"]!["groups"][0]["items"][0]["suffix"].string
-            if let suffix = suffix {
-                RequestController.shared.getImage(suffix: suffix, completion: { (image) in
-                    self.image = image
-                    
-                    DispatchQueue.main.async {
-                        self.updateUI()
-                    }
-                })
-            }
+            
+            let suffix = self.venueDetails["venue"]!["photos"]["groups"][0]["items"][0]["suffix"].stringValue
+            RequestController.shared.getImage(suffix: suffix, completion: { (image) in
+                self.image = image
+                
+                DispatchQueue.main.async {
+                    self.updateUI()
+                }
+            })
             
             DispatchQueue.main.async {
                 self.updateUI()
             }
         }
     }
-    
     
     func updateUI() {
         // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
@@ -56,10 +55,19 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        self.nameLabel.text = self.venueDetails["name"]?.string
-        self.ratingLabel.text = String(self.venueDetails["rating"]!.doubleValue)
-        self.adressLabel.text = self.venueDetails["location"]?["address"].string
-        self.hoursLabel.text = self.venueDetails["hours"]?["status"].string
+        self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
+        self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
+        self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
+        self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
+        
+        // set required CLLocations
+        let VenueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
+        let VenueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
+        let VenueLocation = CLLocation(latitude: VenueLat, longitude: VenueLon)
+        let myLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        
+        //Measuring distance from my location to venue
+        self.distanceLabel.text = String(Int(myLocation.distance(from: VenueLocation))) + " meters"
         
         if let image = image {
             venueImage.image = image

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var HomeTable: UITableView!
@@ -17,16 +19,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var venueList = [JSON]()
     var photoSuffix: String!
     var barImageList = [UIImage]()
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        RequestController.shared.getCoffeeBars { (coffeeBars) in
-            self.venueList = coffeeBars
-            DispatchQueue.main.async {
-                self.updateUI()
-            }
-        }
+        // Set up location services
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        getCurrentLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,14 +43,50 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
+    // Get the current location of the user
+    func getCurrentLocation() {
+        if CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        } else {
+            showLocationAlert()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Request the current location
+        if currentLocation == nil {
+            currentLocation = locationManager.location?.coordinate
+            locationManager.stopUpdatingLocation()
+        }
+        
+        // Request data from API
+        if let currentLocation = currentLocation {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            RequestController.shared.getCoffeeBars(lat: currentLocation.latitude, lon: currentLocation.longitude) { (coffeeBars) in
+                self.venueList = coffeeBars
+                DispatchQueue.main.async {
+                    self.updateUI()
+                }
+            }
+        }
+    }
+    
+    func showLocationAlert() {
+        let alert = UIAlertController(title: "spro", message: "Please enable location services for 'spro'", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        present(alert, animated: true)
+    }
+    
+    
     // Prepare for segue to detail view.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
             let indexPath = HomeTable.indexPathForSelectedRow!.row
 
-            // Pass along venue information.
-            detailViewController.venueId = venueList[indexPath]["venue"]["id"].string
+            // Pass along venue and location information.
+            detailViewController.venueId = venueList[indexPath]["venue"]["id"].stringValue
+            detailViewController.currentLocation = currentLocation
         }
     }
     
@@ -65,11 +103,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
         
-        cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].string
+        cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
         cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
         
-        let suffix = venueList[indexPath.row]["photo"]["suffix"].string
-        RequestController.shared.getImage(suffix: suffix!) { (barImage) in
+        // set required CLLocations
+        let VenueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
+        let VenueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
+        let VenueLocation = CLLocation(latitude: VenueLat, longitude: VenueLon)
+        let myLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        
+        //Measuring distance from my location to venue
+        cell.distanceLabel.text = String(Int(myLocation.distance(from: VenueLocation))) + " meters"
+        
+        
+        let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
+        RequestController.shared.getImage(suffix: suffix) { (barImage) in
             DispatchQueue.main.async {
                 cell.barImageView.image = barImage
             }
@@ -78,4 +126,3 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 }
-
