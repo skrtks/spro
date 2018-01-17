@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A5615200A3533008C7235 /* FoursquareApiCode.swift */; };
+		225883F1200F767D00E492DC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225883F0200F767D00E492DC /* SwiftyJSON.swift */; };
 		22BEDBBD2007811A0066304D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBBC2007811A0066304D /* AppDelegate.swift */; };
 		22BEDBBF2007811A0066304D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBBE2007811A0066304D /* HomeViewController.swift */; };
 		22BEDBC22007811A0066304D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BEDBC02007811A0066304D /* Main.storyboard */; };
@@ -19,11 +20,11 @@
 		22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */; };
 		22ED0B40200A216D00626F5E /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */; };
 		22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE6435200E2890003B0D1C /* VenueAnnotation.swift */; };
-		22FECC6A200CFE8F00F79E5B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FECC69200CFE8F00F79E5B /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		222A5615200A3533008C7235 /* FoursquareApiCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareApiCode.swift; sourceTree = "<group>"; };
+		225883F0200F767D00E492DC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../../../../../Downloads/SwiftyJSON-master/Source/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		22BEDBB92007811A0066304D /* spro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BEDBBC2007811A0066304D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22BEDBBE2007811A0066304D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		22EE6435200E2890003B0D1C /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
-		22FECC69200CFE8F00F79E5B /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +103,8 @@
 		22F11D21200CE7E600953607 /* NetworkCode */ = {
 			isa = PBXGroup;
 			children = (
+				225883F0200F767D00E492DC /* SwiftyJSON.swift */,
 				222A5615200A3533008C7235 /* FoursquareApiCode.swift */,
-				22FECC69200CFE8F00F79E5B /* SwiftyJSON.swift */,
 			);
 			path = NetworkCode;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				22ED0B40200A216D00626F5E /* HomeTableViewCell.swift in Sources */,
 				22BEDBCF200781730066304D /* DetailViewController.swift in Sources */,
 				22BEDBBF2007811A0066304D /* HomeViewController.swift in Sources */,
-				22FECC6A200CFE8F00F79E5B /* SwiftyJSON.swift in Sources */,
+				225883F1200F767D00E492DC /* SwiftyJSON.swift in Sources */,
 				22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */,
 				222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */,
 				22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */,
@@ -358,7 +358,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Kortekaas.spro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -373,7 +373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Kortekaas.spro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

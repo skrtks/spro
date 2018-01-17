@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Outlets
     @IBOutlet weak var HomeTable: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     var venueList = [JSON]()
@@ -39,8 +40,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func updateUI() {
+        // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        // Style tableview
+        HomeTable.backgroundColor = UIColor.clear
+        HomeTable.layer.masksToBounds = false
+        HomeTable.layer.shadowOpacity = 0.2
+        HomeTable.layer.cornerRadius = 8
+        HomeTable.layer.shadowColor = UIColor.black.cgColor
+        HomeTable.layer.shadowRadius = 4
+        HomeTable.layer.shadowOffset = CGSize(width: 0, height: 2)
+    
+        // Reload table data
         self.HomeTable.reloadData()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        activityIndicator.isHidden = true
     }
     
     // Get the current location of the user

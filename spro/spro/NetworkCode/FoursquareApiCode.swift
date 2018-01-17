@@ -24,12 +24,12 @@ class RequestController {
         let url = URL(string: "https://api.foursquare.com/v2/search/recommendations?ll=\(lat),\(lon)&v=20180113&limit=3&query=specialty+coffee&client_id=\(client_id)&client_secret=\(client_secret)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
-            if let data = data {
-                let json = JSON(data: data)
+            do {
+                let json = try JSON(data: data!)
                 coffeeBars = json["response"]["group"]["results"].arrayValue
                 completion(coffeeBars)
-            } else {
-                print("Error getting data from API")
+            } catch {
+                    print("Error parsing JSON")
             }
         })
         task.resume()
@@ -40,12 +40,12 @@ class RequestController {
         let url = URL(string: "https://api.foursquare.com/v2/venues/\(venueId)?&v=20180113&client_id=\(client_id)&client_secret=\(client_secret)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
-            if let data = data {
-                let json = JSON(data: data)
+            do {
+                let json = try JSON(data: data!)
                 venueDetails = json["response"].dictionaryValue
                 completion(venueDetails)
-            } else {
-                print("Error getting data from API")
+            } catch {
+                print("Error parsing JSON")
             }
         })
         task.resume()

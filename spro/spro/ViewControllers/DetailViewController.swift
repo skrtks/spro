@@ -20,6 +20,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var adressLabel: UILabel!
     @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var reviewTable: UITableView!
+    @IBOutlet weak var directionsButton: UIButton!
     
     var venueId: String!
     var image: UIImage!
@@ -30,7 +31,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // Disable button to prevent tapping before all data is loaded
+        directionsButton.isEnabled = false
         RequestController.shared.getDetails(venueId: venueId) { (details) in
             self.venueDetails = details
             
@@ -49,13 +51,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func updateUI() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.tintColor = UIColor.white
         
+        // Make back button white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
+    func updateUI() {
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
         self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
         self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
@@ -73,6 +80,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let image = image {
             venueImage.image = image
         }
+        // Enable the button
+        directionsButton.isEnabled = true
     }
     
     // Prepare for segue to map view.
