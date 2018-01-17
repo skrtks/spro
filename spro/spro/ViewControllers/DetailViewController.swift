@@ -13,6 +13,7 @@ import CoreLocation
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var venueImage: UIImageView!
+    @IBOutlet weak var cardView: UIView!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -63,12 +64,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func updateUI() {
+        
+        // Set labels
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
         self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
         self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
         self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
         
-        // set required CLLocations
+        // set required CLLocations for CL Distance
         let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
         let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
         venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
@@ -80,8 +83,26 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let image = image {
             venueImage.image = image
         }
+        
+        // Configure the background card
+        cardView.layer.cornerRadius = 8
+        addShadow(object: cardView)
+        
         // Enable the button
         directionsButton.isEnabled = true
+        
+        // Style the button
+        directionsButton.layer.cornerRadius = 8
+        addShadow(object: directionsButton)
+    }
+    
+    func addShadow(object: UIView) {
+        // Style shadow
+        object.layer.masksToBounds = false
+        object.layer.shadowOpacity = 0.2
+        object.layer.shadowColor = UIColor.black.cgColor
+        object.layer.shadowRadius = 4
+        object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     // Prepare for segue to map view.

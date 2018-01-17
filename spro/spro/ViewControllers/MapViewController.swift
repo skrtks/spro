@@ -54,21 +54,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func updateUI() {
         // Style button
         directionsButton.backgroundColor = UIColor.white
-        directionsButton.layer.masksToBounds = false
-        directionsButton.layer.shadowOpacity = 0.2
         directionsButton.layer.cornerRadius = 8
-        directionsButton.layer.shadowColor = UIColor.black.cgColor
-        directionsButton.layer.shadowRadius = 4
-        directionsButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        
-//        // Set up blur effect from https://stackoverflow.com/questions/25550719/add-a-blur-effect-to-a-uibutton#32861709
-//        let blur = UIVisualEffectView(effect: UIBlurEffect(style:
-//            UIBlurEffectStyle.light))
-//        blur.frame = directionsButton.bounds
-//        blur.layer.cornerRadius = 8
-//        blur.clipsToBounds = true
-//        blur.isUserInteractionEnabled = false
-//        directionsButton.insertSubview(blur, at: 0)
+        addShadow(object: directionsButton)
+    }
+    
+    func addShadow(object: UIView) {
+        // Style shadow
+        object.layer.masksToBounds = false
+        object.layer.shadowOpacity = 0.2
+        object.layer.shadowColor = UIColor.black.cgColor
+        object.layer.shadowRadius = 4
+        object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     // Set current location indicator if allowed from https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started

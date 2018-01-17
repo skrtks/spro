@@ -46,19 +46,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        // Style tableview
-        HomeTable.backgroundColor = UIColor.clear
-        HomeTable.layer.masksToBounds = false
-        HomeTable.layer.shadowOpacity = 0.2
-        HomeTable.layer.cornerRadius = 8
-        HomeTable.layer.shadowColor = UIColor.black.cgColor
-        HomeTable.layer.shadowRadius = 4
-        HomeTable.layer.shadowOffset = CGSize(width: 0, height: 2)
+        addShadow(object: HomeTable)
     
         // Reload table data
         self.HomeTable.reloadData()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         activityIndicator.isHidden = true
+    }
+    
+    func addShadow(object: UIView) {
+        // Style shadow
+        object.layer.masksToBounds = false
+        object.layer.shadowOpacity = 0.2
+        object.layer.shadowColor = UIColor.black.cgColor
+        object.layer.shadowRadius = 4
+        object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     // Get the current location of the user
