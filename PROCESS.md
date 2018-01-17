@@ -24,3 +24,14 @@ Toegevoegde functies:
 - Vanuit detail view kan kaart worden opgeroepen met de huidige locatie en locatie van geselecteerde venue. 
 
 Naast het implementeren van deze functies heb ik nog even gekeken naar de manier waarop de JSONs worden uigepakt. Ik heb er voor gezorgd dat optionals niet meer geforceerd worden uitgepakt om crashes te voorkomen. 
+
+## Woensdag 17 - 01
+Toegevoegde functies:
+- Als de kaartweergave wordt geopend is nu ook meteen een voorgestelde route vanaf de huidig locatie naar
+  de koffiezaak zichtbaar.
+- In de kaartweergave is nu een knop beschikbaar die de gebruiker naar de Apple Maps applicatie leidt
+  voor een echte routebeschrijving.
+  
+Naast deze nieuwe functies heb ik een aantal UI aanpassing gedaan die de gebruikservaring verbeteren. Daarnaast heb ik
+er voor gezorgd dat de interface consistent is op apparaten met verschillende schermgroottes.
+
