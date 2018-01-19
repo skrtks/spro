@@ -23,20 +23,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     
+    // MARK: Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateUI()
+        
         // Set up location services
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        
+        // Get current location and request API data
         getCurrentLocation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // Deselect the selected row
         let indexPath = HomeTable.indexPathForSelectedRow
         if let indexPath = indexPath {
             self.HomeTable.deselectRow(at: indexPath, animated: true)
         }
+        
+        // Get fresh data for current location
+        getCurrentLocation()
     }
     
     func updateUI() {
@@ -44,7 +54,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barStyle = .black
         
         addShadow(object: HomeTable)
     
@@ -54,6 +64,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         activityIndicator.isHidden = true
     }
     
+    // Adds dropshadow to a UIView
     func addShadow(object: UIView) {
         // Style shadow
         object.layer.masksToBounds = false
@@ -65,7 +76,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Get the current location of the user
     func getCurrentLocation() {
-        if CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
         } else {
             showLocationAlert()
@@ -79,9 +90,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             locationManager.stopUpdatingLocation()
         }
         
-        // Request data from API
+        // Request data from API with current location
         if let currentLocation = currentLocation {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            activityIndicator.isHidden = false
             RequestController.shared.getCoffeeBars(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (coffeeBars) in
                 self.venueList = coffeeBars
                 DispatchQueue.main.async {
@@ -110,6 +122,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         }
     }
+    
+    // MARK: Tableview
     
     // Set the number of sections.
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -26,6 +26,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var venueId: String!
     var image: UIImage!
     var venueDetails = [String: JSON]()
+    var venueReviews = [JSON]()
     var venueLocation: CLLocation!
     var currentLocation: CLLocation!
     
@@ -34,6 +35,15 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
+        
+        RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
+            self.venueReviews = reviews
+            
+            DispatchQueue.main.async {
+                self.reviewTable.reloadData()
+            }
+        })
+        
         RequestController.shared.getDetails(venueId: venueId) { (details) in
             self.venueDetails = details
             
@@ -54,17 +64,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.barStyle = .black
         
         // Make back button white
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     func updateUI() {
-        
         // Set labels
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
         self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
@@ -94,6 +100,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Style the button
         directionsButton.layer.cornerRadius = 8
         addShadow(object: directionsButton)
+        
+        // Update table data
+        self.reviewTable.reloadData()
     }
     
     func addShadow(object: UIView) {
@@ -119,17 +128,19 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     // Set the number of rows.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return venueReviews.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! ReviewTableViewCell
-        
-        
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewTableViewCell
+
+
+        cell.nameLabel.text = venueReviews[indexPath.row]["user"]["firstName"].stringValue
+        cell.bodyLabel.text = venueReviews[indexPath.row]["text"].stringValue
+
         return cell
     }
 }

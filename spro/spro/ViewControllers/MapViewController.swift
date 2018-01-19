@@ -23,11 +23,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.barStyle = .default
+
         
         // Make back button blue
         self.navigationController?.navigationBar.tintColor = self.view.tintColor

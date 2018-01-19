@@ -11,6 +11,7 @@ import UIKit
 class HomeTableViewCell: UITableViewCell {
     
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var barImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
