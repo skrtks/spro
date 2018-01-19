@@ -35,3 +35,19 @@ Toegevoegde functies:
 Naast deze nieuwe functies heb ik een aantal UI aanpassing gedaan die de gebruikservaring verbeteren. Daarnaast heb ik
 er voor gezorgd dat de interface consistent is op apparaten met verschillende schermgroottes.
 
+## Donderdag 18 - 01
+Toegevoegde functionaliteit:
+- Als je terug gaat naar het beginscherm word altijd opnieuw de locatie bepaald en de API opnieuw aangesproken voor verse data.
+
+Het blijkt dat als je de kleur van de statusbar tekst wilt aanpassen in een VC die in een nav controller zit, dat op een andere manier moet. Probleem opgelost!
+
+Verder heb ik vandaag nog een beetje mijn code opgeschoont. 
+
+## Vrijdag 19 - 01
+
+Vandaag presentatie gegeven over de voortgang van mijn app. 
+
+Ik had gisteren wat problemen met het laden van de table view in mijn detail view controller. Dat is nu opgelost en ik ben bezig met het goed weergeven van de reviews in de cellen. De grootste uitdaging is dat de grootte van de cell aanpast naar aanleiding van de lengte van de review die moet worden weergegeven. Ik weet op dit moment nog niet of dat mogelijk is, maar ik denk het wel. Edit: dit blijkt heel makkelijk te zijn en gebeurd, zoals we al heel vaak gedaan hebben, als het aantal regels op 0 wordt gezet. 
+
+
+
