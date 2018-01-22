@@ -103,10 +103,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Enable the button
         directionsButton.isEnabled = true
         
-        // Style the button
-        directionsButton.layer.cornerRadius = 8
-        addShadow(object: directionsButton)
-        
         // Update table data
         self.reviewTable.reloadData()
     }

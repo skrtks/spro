@@ -7,92 +7,71 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ResultTableViewController: UITableViewController {
     
+    // MARK: Properties
+    var lon: Double!
+    var lat: Double!
+    var venueList = [JSON]()
+    var locationData: CLPlacemark!
     
+    // MARK: Outlets
+    @IBOutlet var resultsTable: UITableView!
+    
+    // MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        RequestController.shared.getCoffeeBars(lat: lat, lon: lon) { (coffeeBars) in
+            self.venueList = coffeeBars
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
         
+        }
+    }
+        
+    func updateUI() {
+        // Reload table data
+        self.resultsTable.reloadData()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+    // MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return venueList.count
     }
 
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as! ResultsTableViewCell
+        
+        cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
+        cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
+        
+        // Style the rating label and set label color
+        cell.ratingLabel.layer.cornerRadius = 5
+        let alpha = "ff"
+        let color = UIColor(hexString: "#" + venueList[indexPath.row]["venue"]["ratingColor"].stringValue + alpha)
+        cell.ratingLabel.backgroundColor = color
+        
+        // Load and set image
+        let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
+        RequestController.shared.getImage(suffix: suffix) { (barImage) in
+            DispatchQueue.main.async {
+                cell.barImageView.image = barImage
+            }
+        }
 
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

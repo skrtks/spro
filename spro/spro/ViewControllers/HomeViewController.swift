@@ -14,6 +14,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Outlets
     @IBOutlet weak var HomeTable: UITableView!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
@@ -28,6 +30,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+        
+        // Disable/enable the search button
+        updateSearchButton()
         
         // Set up location services
         locationManager.delegate = self
@@ -64,9 +69,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         activityIndicator.isHidden = true
     }
     
-    @IBAction func refreshButtonTouched(_ sender: Any) {
-        // Get fresh data for current location
-        getCurrentLocation()
+    // Update state of search button
+    func updateSearchButton() {
+        
+        // Disable search button if search field is empty
+        if searchField.text == "" {
+            searchButton.isEnabled = false
+        } else {
+            searchButton.isEnabled = true
+        }
     }
     
     // Adds dropshadow to a UIView
@@ -125,7 +136,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             detailViewController.venueId = venueList[indexPath]["venue"]["id"].stringValue
             detailViewController.currentLocation = currentLocation
             
+        } else if segue.identifier == "SearchSegue" {
+            let resultsTableViewController = segue.destination as! ResultTableViewController
+            // Get the coordinates for address
+            let geocoder = CLGeocoder()
+            if let address = searchField.text {
+                geocoder.geocodeAddressString(address) { locationData, error in
+                    resultsTableViewController.locationData = locationData?.first
+                }
+            } else {
+                print("No query provided")
+            }
         }
+    }
+    
+    // MARK: Actions
+    @IBAction func searchFieldChanged(_ sender: Any) {
+        updateSearchButton()
+    }
+    
+    @IBAction func refreshButtonTouched(_ sender: Any) {
+        // Get fresh data for current location
+        getCurrentLocation()
     }
     
     // MARK: Tableview

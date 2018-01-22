@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221B25B220160EF900416551 /* ResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B25B120160EF900416551 /* ResultsTableViewCell.swift */; };
 		222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A5615200A3533008C7235 /* FoursquareApiCode.swift */; };
 		225883F1200F767D00E492DC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225883F0200F767D00E492DC /* SwiftyJSON.swift */; };
 		22BEDBBD2007811A0066304D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBBC2007811A0066304D /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		221B25B120160EF900416551 /* ResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewCell.swift; sourceTree = "<group>"; };
 		222A5615200A3533008C7235 /* FoursquareApiCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareApiCode.swift; sourceTree = "<group>"; };
 		225883F0200F767D00E492DC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../../../../../Downloads/SwiftyJSON-master/Source/SwiftyJSON.swift"; sourceTree = "<group>"; };
 		22BEDBB92007811A0066304D /* spro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spro.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 				22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */,
 				22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */,
 				22EE6435200E2890003B0D1C /* VenueAnnotation.swift */,
+				221B25B120160EF900416551 /* ResultsTableViewCell.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				22BEDBCF200781730066304D /* DetailViewController.swift in Sources */,
 				22BEDBBF2007811A0066304D /* HomeViewController.swift in Sources */,
 				225883F1200F767D00E492DC /* SwiftyJSON.swift in Sources */,
+				221B25B220160EF900416551 /* ResultsTableViewCell.swift in Sources */,
 				22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */,
 				222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */,
 				22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */,
