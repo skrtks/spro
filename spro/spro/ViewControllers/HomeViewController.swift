@@ -137,16 +137,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             detailViewController.currentLocation = currentLocation
             
         } else if segue.identifier == "SearchSegue" {
-            let resultsTableViewController = segue.destination as! ResultTableViewController
-            // Get the coordinates for address
-            let geocoder = CLGeocoder()
-            if let address = searchField.text {
-                geocoder.geocodeAddressString(address) { locationData, error in
-                    resultsTableViewController.locationData = locationData?.first
-                }
-            } else {
-                print("No query provided")
-            }
+            let resultViewController = segue.destination as! ResultTableViewController
+            resultViewController.searchQuery = searchField.text
         }
     }
     
@@ -191,9 +183,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // Measuring distance from my location to venue
         cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
-        
-        
-        
         
         let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
         RequestController.shared.getImage(suffix: suffix) { (barImage) in
