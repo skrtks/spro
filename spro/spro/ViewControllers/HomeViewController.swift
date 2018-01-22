@@ -64,6 +64,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         activityIndicator.isHidden = true
     }
     
+    @IBAction func refreshButtonTouched(_ sender: Any) {
+        // Get fresh data for current location
+        getCurrentLocation()
+    }
+    
     // Adds dropshadow to a UIView
     func addShadow(object: UIView) {
         // Style shadow
@@ -141,13 +146,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
         cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
         
+        // Style the rating label and set label color
+        cell.ratingLabel.layer.cornerRadius = 5
+        let alpha = "ff"
+        let color = UIColor(hexString: "#" + venueList[indexPath.row]["venue"]["ratingColor"].stringValue + alpha)
+        cell.ratingLabel.backgroundColor = color
+        
         // set required CLLocations
         let venueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
         let venueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
         let venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
         
-        //Measuring distance from my location to venue
+        // Measuring distance from my location to venue
         cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
+        
+        
         
         
         let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue

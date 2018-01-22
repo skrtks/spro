@@ -77,6 +77,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
         self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
         
+        // Style the rating label and set label color
+        self.ratingLabel.layer.cornerRadius = 5
+        let alpha = "ff"
+        let color = UIColor(hexString: "#" + venueDetails["venue"]!["ratingColor"].stringValue + alpha)
+        self.ratingLabel.backgroundColor = color
+        
         // set required CLLocations for CL Distance
         let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
         let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
