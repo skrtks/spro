@@ -14,6 +14,6 @@ class ResultsTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var backgroundImage: UIImageView!
-    
+    @IBOutlet weak var addressLabel: UILabel!
 
 }

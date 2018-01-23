@@ -67,6 +67,17 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // Prepare for segue to detail view.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetailSegue" {
+            let detailViewController = segue.destination as! DetailViewController
+            let indexPath = resultsTable.indexPathForSelectedRow!.row
+            
+            // Pass along venue and location information.
+            detailViewController.venueId = venueList[indexPath]["venue"]["id"].stringValue
+        }
+    }
+    
     // MARK: Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -84,6 +95,7 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
         cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
+        cell.addressLabel.text = venueList[indexPath.row]["venue"]["location"]["address"].stringValue
         
         // Style the rating label and set label color
         cell.ratingLabel.layer.cornerRadius = 5

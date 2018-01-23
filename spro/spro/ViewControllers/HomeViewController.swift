@@ -8,31 +8,38 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITextFieldDelegate, MKLocalSearchCompleterDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var HomeTable: UITableView!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var suggestionsTable: UITableView!
     
     // MARK: Properties
     var venueList = [JSON]()
     var photoSuffix: String!
     var barImageList = [UIImage]()
     let locationManager = CLLocationManager()
+    let searchCompleter = MKLocalSearchCompleter()
     var currentLocation: CLLocation!
+    var searchSuggestions = [MKLocalSearchCompletion]()
+    
     
     // MARK: Functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-        
-        // Disable/enable the search button
-        updateSearchButton()
+
+        // Set delegates
+        searchField.delegate = self
+        suggestionsTable.delegate = self
+        searchCompleter.delegate = self
         
         // Set up location services
         locationManager.delegate = self
@@ -49,9 +56,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let indexPath = indexPath {
             self.HomeTable.deselectRow(at: indexPath, animated: true)
         }
-        
-        // Get fresh data for current location
-        getCurrentLocation()
     }
     
     func updateUI() {
@@ -61,7 +65,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.barStyle = .black
         
+        // Style the suggestions table
+        suggestionsTable.alpha = 0
+        suggestionsTable.layer.masksToBounds = true
+        suggestionsTable.layer.cornerRadius = 4
+        
+        // Add shadows
         addShadow(object: HomeTable)
+        
+        // Show/hide certain elements
+        updateSearchButton()
+        suggestionsTable.isHidden = true
     
         // Reload table data
         self.HomeTable.reloadData()
@@ -93,7 +107,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Get the current location of the user
     func getCurrentLocation() {
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
+            locationManager.requestLocation()
         } else {
             showLocationAlert()
         }
@@ -101,10 +115,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Request the current location
-        if currentLocation == nil {
-            currentLocation = locationManager.location
-            locationManager.stopUpdatingLocation()
-        }
+        currentLocation = locationManager.location
         
         // Request data from API with current location
         if let currentLocation = currentLocation {
@@ -119,12 +130,29 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // Print error when reported
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    // Show a alert about location services
     func showLocationAlert() {
         let alert = UIAlertController(title: "spro", message: "Please enable location services for 'spro'", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }
     
+    // Hide the keyboard when touching oustide keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // When return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchField.resignFirstResponder()
+        performSegue(withIdentifier: "SearchSegue", sender: nil)
+        return true
+    }
     
     // Prepare for segue to detail view.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,6 +173,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Actions
     @IBAction func searchFieldChanged(_ sender: Any) {
         updateSearchButton()
+        searchCompleter.queryFragment = searchField.text!
+        searchSuggestions = searchCompleter.results
+        
+        // Animate appearance of suggestions
+        UIView.animate(withDuration: 0.2, delay: 0.5, animations: {
+            self.suggestionsTable.isHidden = false
+            self.suggestionsTable.alpha = 1
+        })
+    }
+    
+    @IBAction func searchFieldEnded(_ sender: Any) {
+        // Animate dissapearing of suggestions
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+            self.suggestionsTable.alpha = 0
+        }, completion: { _ in
+            self.suggestionsTable.isHidden = true
+        })
     }
     
     @IBAction func refreshButtonTouched(_ sender: Any) {
@@ -161,36 +206,69 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Set the number of rows.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return venueList.count
+        if tableView == HomeTable {
+            return venueList.count
+        } else {
+            return searchSuggestions.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
-        
-        cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
-        cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
-        
-        // Style the rating label and set label color
-        cell.ratingLabel.layer.cornerRadius = 5
-        let alpha = "ff"
-        let color = UIColor(hexString: "#" + venueList[indexPath.row]["venue"]["ratingColor"].stringValue + alpha)
-        cell.ratingLabel.backgroundColor = color
-        
-        // set required CLLocations
-        let venueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
-        let venueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
-        let venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
-        
-        // Measuring distance from my location to venue
-        cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
-        
-        let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
-        RequestController.shared.getImage(suffix: suffix) { (barImage) in
-            DispatchQueue.main.async {
-                cell.barImageView.image = barImage
+        if tableView == HomeTable {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
+            
+            cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
+            cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
+            
+            // Style the rating label and set label color
+            cell.ratingLabel.layer.cornerRadius = 5
+            let alpha = "ff"
+            let color = UIColor(hexString: "#" + venueList[indexPath.row]["venue"]["ratingColor"].stringValue + alpha)
+            cell.ratingLabel.backgroundColor = color
+            
+            // set required CLLocations
+            let venueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
+            let venueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
+            let venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
+            
+            // Measuring distance from my location to venue
+            cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
+            
+            let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
+            RequestController.shared.getImage(suffix: suffix) { (barImage) in
+                DispatchQueue.main.async {
+                    cell.barImageView.image = barImage
+                }
             }
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SuggestionCell", for: indexPath)
+            
+            cell.textLabel?.text = searchSuggestions[indexPath.row].title
+            cell.detailTextLabel?.text = searchSuggestions[indexPath.row].subtitle
+            return cell
         }
-        
-        return cell
+    }
+    
+    // Use completion to fill searchField
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == suggestionsTable {
+            searchField.text = searchSuggestions[indexPath.row].title
+            performSegue(withIdentifier: "SearchSegue", sender: nil)
+        }
+    }
+}
+
+// Exstension for updating the table view when completion is updated, from: https://stackoverflow.com/questions/41136150/swift-mapkit-autocomplete#41150928
+extension HomeViewController {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchSuggestions = completer.results
+        suggestionsTable.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        // handle error
+        print(error.localizedDescription)
     }
 }

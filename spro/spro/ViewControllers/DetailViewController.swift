@@ -36,6 +36,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
         
+        // Disable some functions if current location is missing
+        if currentLocation == nil {
+            directionsButton.isHidden = true
+            distanceLabel.isHidden = true
+        }
+        
         RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
             self.venueReviews = reviews
             
@@ -89,16 +95,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
         
         //Measuring distance from my location to venue
-        self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
+        if let currentLocation = currentLocation {
+            self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
+        }
         
         // Set the image
         if let image = image {
             venueImage.image = image
         }
         
-        // Configure the background card
-        cardView.layer.cornerRadius = 8
-        addShadow(object: cardView)
+//        // Configure the background card
+//        cardView.layer.cornerRadius = 8
+//        addShadow(object: cardView)
         
         // Enable the button
         directionsButton.isEnabled = true

@@ -18,7 +18,6 @@
 		22BEDBC72007811A0066304D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BEDBC52007811A0066304D /* LaunchScreen.storyboard */; };
 		22BEDBCF200781730066304D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBCE200781730066304D /* DetailViewController.swift */; };
 		22BEDBD1200781800066304D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBD0200781800066304D /* MapViewController.swift */; };
-		22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBD22007818D0066304D /* ResultTableViewController.swift */; };
 		22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */; };
 		22ED0B40200A216D00626F5E /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */; };
 		22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE6435200E2890003B0D1C /* VenueAnnotation.swift */; };
@@ -38,7 +37,6 @@
 		22BEDBC82007811A0066304D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22BEDBCE200781730066304D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		22BEDBD0200781800066304D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		22BEDBD22007818D0066304D /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		22C3600D200CC3E700DFF75F /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		22ED0B3F200A216D00626F5E /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		22EE6435200E2890003B0D1C /* VenueAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAnnotation.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				22BEDBBE2007811A0066304D /* HomeViewController.swift */,
 				22BEDBCE200781730066304D /* DetailViewController.swift */,
 				22BEDBD0200781800066304D /* MapViewController.swift */,
-				22BEDBD22007818D0066304D /* ResultTableViewController.swift */,
 				22A9BF1720173452003C8B7D /* ResultViewController.swift */,
 			);
 			path = ViewControllers;
@@ -218,7 +215,6 @@
 				221B25B220160EF900416551 /* ResultsTableViewCell.swift in Sources */,
 				22EE6436200E2890003B0D1C /* VenueAnnotation.swift in Sources */,
 				222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */,
-				22BEDBD32007818D0066304D /* ResultTableViewController.swift in Sources */,
 				22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */,
 				22BEDBBD2007811A0066304D /* AppDelegate.swift in Sources */,
 				22BEDBD1200781800066304D /* MapViewController.swift in Sources */,
