@@ -137,7 +137,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             detailViewController.currentLocation = currentLocation
             
         } else if segue.identifier == "SearchSegue" {
-            let resultViewController = segue.destination as! ResultTableViewController
+            let resultViewController = segue.destination as! ResultViewController
             resultViewController.searchQuery = searchField.text
         }
     }

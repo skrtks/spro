@@ -10,6 +10,7 @@
 		221B25B220160EF900416551 /* ResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221B25B120160EF900416551 /* ResultsTableViewCell.swift */; };
 		222A5616200A3533008C7235 /* FoursquareApiCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A5615200A3533008C7235 /* FoursquareApiCode.swift */; };
 		225883F1200F767D00E492DC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225883F0200F767D00E492DC /* SwiftyJSON.swift */; };
+		22A9BF1820173452003C8B7D /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9BF1720173452003C8B7D /* ResultViewController.swift */; };
 		22BEDBBD2007811A0066304D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBBC2007811A0066304D /* AppDelegate.swift */; };
 		22BEDBBF2007811A0066304D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEDBBE2007811A0066304D /* HomeViewController.swift */; };
 		22BEDBC22007811A0066304D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BEDBC02007811A0066304D /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		221B25B120160EF900416551 /* ResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewCell.swift; sourceTree = "<group>"; };
 		222A5615200A3533008C7235 /* FoursquareApiCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareApiCode.swift; sourceTree = "<group>"; };
 		225883F0200F767D00E492DC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = "../../../../../../../Downloads/SwiftyJSON-master/Source/SwiftyJSON.swift"; sourceTree = "<group>"; };
+		22A9BF1720173452003C8B7D /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		22BEDBB92007811A0066304D /* spro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BEDBBC2007811A0066304D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22BEDBBE2007811A0066304D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				22BEDBCE200781730066304D /* DetailViewController.swift */,
 				22BEDBD0200781800066304D /* MapViewController.swift */,
 				22BEDBD22007818D0066304D /* ResultTableViewController.swift */,
+				22A9BF1720173452003C8B7D /* ResultViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				22C3600E200CC3E700DFF75F /* ReviewTableViewCell.swift in Sources */,
 				22BEDBBD2007811A0066304D /* AppDelegate.swift in Sources */,
 				22BEDBD1200781800066304D /* MapViewController.swift in Sources */,
+				22A9BF1820173452003C8B7D /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
