@@ -49,5 +49,12 @@ Vandaag presentatie gegeven over de voortgang van mijn app.
 
 Ik had gisteren wat problemen met het laden van de table view in mijn detail view controller. Dat is nu opgelost en ik ben bezig met het goed weergeven van de reviews in de cellen. De grootste uitdaging is dat de grootte van de cell aanpast naar aanleiding van de lengte van de review die moet worden weergegeven. Ik weet op dit moment nog niet of dat mogelijk is, maar ik denk het wel. Edit: dit blijkt heel makkelijk te zijn en gebeurd, zoals we al heel vaak gedaan hebben, als het aantal regels op 0 wordt gezet. 
 
+## Maandag 22 - 01
+
+De groene knop voor het opvragen van een routebeschrijving was moeilijk aan te tikken doordat deze een beetje aan de kleine kan was. Ik heb de knop daarom een stukje verplaatst en groter gemaakt zodat het duidelijk is dat de optie beschikbaar is. 
+
+Ik heb een refreshknop geplaatst op de beginpagina, zodat de huidige locatie en de bijbehorende resultaten opnieuw geladen worden. De functionaliteit werkt echter nog niet helemaal, ik hoop dat morgen op te lossen. 
+
+Om de rating van een plek duidelijk te maken heb ik kleuren toegevoegd die door de API geleverd worden. De API levert HEX waarden en om die te kunnen gebruiken moest een extention worden toegevoegd voor UIColor.
 
 
