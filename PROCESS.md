@@ -57,4 +57,13 @@ Ik heb een refreshknop geplaatst op de beginpagina, zodat de huidige locatie en 
 
 Om de rating van een plek duidelijk te maken heb ik kleuren toegevoegd die door de API geleverd worden. De API levert HEX waarden en om die te kunnen gebruiken moest een extention worden toegevoegd voor UIColor.
 
+## Dinsdag 23 - 01
 
+- UI Table omgezet in UI View omdat ik nog extra informatie wil geven die niet in een UITableView past
+- Return knop start nu een zoekactie
+- Keybord kan nu worden verborgen
+- Er worden adres suggesties gegeven tijdens het typen
+
+Ik ben op advies van Marijn overgestapt op requestLocation in plaats van startUpdating location omdat je dan zeker weet de de locatie services stoppen als de locatie gevonden is. 
+
+Ik ben even een beetje vastgelopen met de layout van een van mijn custom cellen. Op de een of andere manier wordt het plaatje steeds heel groot.
