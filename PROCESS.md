@@ -67,3 +67,10 @@ Om de rating van een plek duidelijk te maken heb ik kleuren toegevoegd die door 
 Ik ben op advies van Marijn overgestapt op requestLocation in plaats van startUpdating location omdat je dan zeker weet de de locatie services stoppen als de locatie gevonden is. 
 
 Ik ben even een beetje vastgelopen met de layout van een van mijn custom cellen. Op de een of andere manier wordt het plaatje steeds heel groot.
+
+## Woensdag 24 - 01
+Vandaag heb ik het een en ander opgeschoond.
+- Zoek knop op home screen verwijdert omdat die eigenlijk overbodig was.
+- Aantal interface problemen opgelost.
+- Als bepaalde informatie niet beschikbaar is blijft het label niet meer leeg.
+- Aantal bugs met het verwerken van de automatisch gegenereerde adressen opgelost. 
