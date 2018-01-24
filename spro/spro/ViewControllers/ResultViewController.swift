@@ -22,7 +22,10 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        print("Query is \(searchQuery)")
+        // Make the table view transparent for animation
+        resultsTable.alpha = 0
+        
         getCoordinates() { (locationData) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             if let name = locationData?.name {
@@ -53,6 +56,11 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Reload table data
         self.resultsTable.reloadData()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        
+        // Animate appearance of the table
+        UIView.animate(withDuration: 0.5) {
+            self.resultsTable.alpha = 1
+        }
     }
     
     func getCoordinates(completion: @escaping (CLPlacemark?) -> Void) {
@@ -63,10 +71,20 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let placemarks = placemarks {
                 placemark = placemarks[0]
                 completion(placemark)
+            } else if error != nil {
+                self.showAlert(title: "Error", message: "Provided location could not be processed.")
+                completion(nil)
             } else {
                 completion(nil)
             }
         }
+    }
+    
+    // Show error alert
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        present(alert, animated: true)
     }
     
     // Prepare for segue to detail view.

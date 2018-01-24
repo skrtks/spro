@@ -45,12 +45,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
+        // Make the table view transparent for animation
+        HomeTable.alpha = 0
+        
         // Get current location and request API data
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCurrentLocation()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         // Deselect the selected row
         let indexPath = HomeTable.indexPathForSelectedRow
         if let indexPath = indexPath {
@@ -80,6 +85,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.HomeTable.reloadData()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         activityIndicator.isHidden = true
+        
+        // Animate appearance of the table
+        UIView.animate(withDuration: 0.5) {
+            self.HomeTable.alpha = 1
+        }
     }
     
     // Adds dropshadow to a UIView
@@ -118,7 +128,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Print error when reported
+    // Show error when reported
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         showAlert(title: "Spro", message: "Something went wrong: \(error.localizedDescription)")
     }
@@ -242,7 +252,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // Use completion to fill searchField
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == suggestionsTable {
-            searchField.text = searchSuggestions[indexPath.row].title
+            searchField.text = searchSuggestions[indexPath.row].title + ", " + searchSuggestions[indexPath.row].subtitle
+            
             performSegue(withIdentifier: "SearchSegue", sender: nil)
         }
     }

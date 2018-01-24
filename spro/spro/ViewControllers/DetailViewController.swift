@@ -57,29 +57,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func updateUI() {
         calculateDistance()
-        // Set labels
-        self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
-        self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
-        
-        // Check if info is provided
-        if self.venueDetails["venue"]!["location"]["address"].stringValue != "" {
-            self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
-        } else {
-            self.hoursLabel.text = "Address unavailable"
-        }
-        
-        if self.venueDetails["venue"]!["hours"]["status"].stringValue != "" {
-            self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
-        } else {
-            self.hoursLabel.text = "Hours unavailable"
-        }
-        
-        
-        // Style the rating label and set label color
-        self.ratingLabel.layer.cornerRadius = 5
-        let alpha = "ff"
-        let color = UIColor(hexString: "#" + venueDetails["venue"]!["ratingColor"].stringValue + alpha)
-        self.ratingLabel.backgroundColor = color
+        setLabels()
         
         // Set the image
         if let image = image {
@@ -104,6 +82,36 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         object.layer.shadowColor = UIColor.black.cgColor
         object.layer.shadowRadius = 4
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+    
+    func setLabels() {
+        // Set labels
+        self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
+        
+        // Check if info is provided
+        if String(self.venueDetails["venue"]!["rating"].doubleValue) != "" {
+            self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
+            
+            // Style the rating label and set label color
+            self.ratingLabel.layer.cornerRadius = 5
+            let alpha = "ff"
+            let color = UIColor(hexString: "#" + venueDetails["venue"]!["ratingColor"].stringValue + alpha)
+            self.ratingLabel.backgroundColor = color
+        } else {
+            self.ratingLabel.text = "No rating"
+        }
+        
+        if self.venueDetails["venue"]!["location"]["address"].stringValue != "" {
+            self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
+        } else {
+            self.hoursLabel.text = "Address unavailable"
+        }
+        
+        if self.venueDetails["venue"]!["hours"]["status"].stringValue != "" {
+            self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
+        } else {
+            self.hoursLabel.text = "Hours unavailable"
+        }
     }
     
     func getReviews() {
