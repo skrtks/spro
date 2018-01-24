@@ -100,8 +100,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         route.calculate { (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("ERROR")
-                    print(error)
+                    print(error.localizedDescription)
                 }
                 
             return

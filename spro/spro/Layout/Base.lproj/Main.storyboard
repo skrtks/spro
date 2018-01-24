@@ -201,11 +201,6 @@
                             <constraint firstItem="6eN-bk-QRd" firstAttribute="top" secondItem="GRr-xS-Qj2" secondAttribute="bottom" constant="41" id="wOw-fC-PRN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="nBo-dU-H4o"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="yOS-An-YxO"/>
                     <connections>

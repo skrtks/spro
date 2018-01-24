@@ -42,30 +42,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             distanceLabel.isHidden = true
         }
         
-        RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
-            self.venueReviews = reviews
-            
-            DispatchQueue.main.async {
-                self.reviewTable.reloadData()
-            }
-        })
+        getReviews()
+        getDetails()
         
-        RequestController.shared.getDetails(venueId: venueId) { (details) in
-            self.venueDetails = details
-            
-            let suffix = self.venueDetails["venue"]!["photos"]["groups"][0]["items"][0]["suffix"].stringValue
-            RequestController.shared.getImage(suffix: suffix, completion: { (image) in
-                self.image = image
-                
-                DispatchQueue.main.async {
-                    self.updateUI()
-                }
-            })
-            
-            DispatchQueue.main.async {
-                self.updateUI()
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,27 +56,30 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func updateUI() {
+        calculateDistance()
         // Set labels
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
         self.ratingLabel.text = String(self.venueDetails["venue"]!["rating"].doubleValue)
-        self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
-        self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
+        
+        // Check if info is provided
+        if self.venueDetails["venue"]!["location"]["address"].stringValue != "" {
+            self.adressLabel.text = self.venueDetails["venue"]!["location"]["address"].stringValue
+        } else {
+            self.hoursLabel.text = "Address unavailable"
+        }
+        
+        if self.venueDetails["venue"]!["hours"]["status"].stringValue != "" {
+            self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
+        } else {
+            self.hoursLabel.text = "Hours unavailable"
+        }
+        
         
         // Style the rating label and set label color
         self.ratingLabel.layer.cornerRadius = 5
         let alpha = "ff"
         let color = UIColor(hexString: "#" + venueDetails["venue"]!["ratingColor"].stringValue + alpha)
         self.ratingLabel.backgroundColor = color
-        
-        // set required CLLocations for CL Distance
-        let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
-        let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
-        venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
-        
-        //Measuring distance from my location to venue
-        if let currentLocation = currentLocation {
-            self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
-        }
         
         // Set the image
         if let image = image {
@@ -122,6 +104,47 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         object.layer.shadowColor = UIColor.black.cgColor
         object.layer.shadowRadius = 4
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+    
+    func getReviews() {
+        RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
+            self.venueReviews = reviews
+            
+            DispatchQueue.main.async {
+                self.reviewTable.reloadData()
+            }
+        })
+    }
+    
+    func getDetails() {
+        RequestController.shared.getDetails(venueId: venueId) { (details) in
+            self.venueDetails = details
+            
+            let suffix = self.venueDetails["venue"]!["photos"]["groups"][0]["items"][0]["suffix"].stringValue
+            RequestController.shared.getImage(suffix: suffix, completion: { (image) in
+                self.image = image
+                
+                DispatchQueue.main.async {
+                    self.updateUI()
+                }
+            })
+            
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        }
+    }
+    
+    func calculateDistance() {
+        // set required CLLocations for CL Distance
+        let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
+        let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
+        venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
+        
+        //Measuring distance from my location to venue
+        if let currentLocation = currentLocation {
+            self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
+        }
     }
     
     // Prepare for segue to map view.

@@ -29,7 +29,7 @@ class RequestController {
                 coffeeBars = json["response"]["group"]["results"].arrayValue
                 completion(coffeeBars)
             } catch {
-                    print("Error parsing JSON")
+                print("Error parsing JSON: \(error.localizedDescription)")
             }
         })
         task.resume()
@@ -45,7 +45,7 @@ class RequestController {
                 venueDetails = json["response"].dictionaryValue
                 completion(venueDetails)
             } catch {
-                print("Error parsing JSON")
+                print("Error parsing JSON: \(error.localizedDescription)")
             }
         })
         task.resume()
@@ -54,7 +54,7 @@ class RequestController {
     func getReviews(venueID: String, completion: @escaping ([JSON]) -> Void) {
         var venueTips = [JSON]()
         let url = URL(string: "https://api.foursquare.com/v2/venues/\(venueID)/tips?&v=20180113&client_id=\(client_id)&client_secret=\(client_secret)")!
-        print(url)
+
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
             do {
                 let json = try JSON(data: data!)
@@ -62,7 +62,7 @@ class RequestController {
                 
                 completion(venueTips)
             } catch {
-                print("Error parsing JSON")
+                print("Error parsing JSON: \(error.localizedDescription)")
             }
         })
         task.resume()

@@ -23,11 +23,9 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-        print("query = \(searchQuery)")
         getCoordinates() { (locationData) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             if let name = locationData?.name {
-                print(name)
                 self.locationLabel.text = name
             }
             if let coordinates = locationData?.location?.coordinate {
