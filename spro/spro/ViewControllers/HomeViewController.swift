@@ -15,7 +15,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Outlets
     @IBOutlet weak var HomeTable: UITableView!
-    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var suggestionsTable: UITableView!
@@ -47,6 +46,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
         // Get current location and request API data
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCurrentLocation()
     }
     
@@ -74,24 +74,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         addShadow(object: HomeTable)
         
         // Show/hide certain elements
-        updateSearchButton()
         suggestionsTable.isHidden = true
     
         // Reload table data
         self.HomeTable.reloadData()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         activityIndicator.isHidden = true
-    }
-    
-    // Update state of search button
-    func updateSearchButton() {
-        
-        // Disable search button if search field is empty
-        if searchField.text == "" {
-            searchButton.isEnabled = false
-        } else {
-            searchButton.isEnabled = true
-        }
     }
     
     // Adds dropshadow to a UIView
@@ -109,7 +97,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.requestLocation()
         } else {
-            showLocationAlert()
+            showAlert(title: "Spro", message: "Please enable location services for Spro")
         }
     }
     
@@ -132,12 +120,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Print error when reported
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        showAlert(title: "Spro", message: "Something went wrong: \(error.localizedDescription)")
     }
     
     // Show a alert about location services
-    func showLocationAlert() {
-        let alert = UIAlertController(title: "spro", message: "Please enable location services for 'spro'", preferredStyle: .alert)
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }
@@ -172,7 +160,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Actions
     @IBAction func searchFieldChanged(_ sender: Any) {
-        updateSearchButton()
         searchCompleter.queryFragment = searchField.text!
         searchSuggestions = searchCompleter.results
         
@@ -194,6 +181,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func refreshButtonTouched(_ sender: Any) {
         // Get fresh data for current location
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCurrentLocation()
     }
     
