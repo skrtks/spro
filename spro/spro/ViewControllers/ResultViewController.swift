@@ -17,18 +17,22 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: Outlets
     @IBOutlet var resultsTable: UITableView!
+    @IBOutlet weak var locationLabel: UILabel!
     
     // MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+        print("query = \(searchQuery)")
         getCoordinates() { (locationData) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            if let name = locationData?.name {
+                print(name)
+                self.locationLabel.text = name
+            }
             if let coordinates = locationData?.location?.coordinate {
                 let lat = coordinates.latitude
                 let lon = coordinates.longitude
-                print(lat)
-                print(lon)
                 RequestController.shared.getCoffeeBars(lat: lat, lon: lon) { (coffeeBars) in
                     self.venueList = coffeeBars
                     DispatchQueue.main.async {
@@ -92,7 +96,7 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as! ResultsTableViewCell
-        
+        cell.barImageView.layer.cornerRadius = 8
         cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
         cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
         cell.addressLabel.text = venueList[indexPath.row]["venue"]["location"]["address"].stringValue

@@ -204,7 +204,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == HomeTable {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
-            
+            cell.barImageView.layer.cornerRadius = 8
             cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
             cell.ratingLabel.text = String(venueList[indexPath.row]["venue"]["rating"].doubleValue)
             
