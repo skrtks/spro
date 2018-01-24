@@ -104,9 +104,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             venueImage.image = image
         }
         
-//        // Configure the background card
-//        cardView.layer.cornerRadius = 8
-//        addShadow(object: cardView)
+        // Configure the background card
+        cardView.layer.cornerRadius = 8
+        addShadow(object: cardView)
         
         // Enable the button
         directionsButton.isEnabled = true
