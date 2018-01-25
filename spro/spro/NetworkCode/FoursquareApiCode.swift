@@ -22,7 +22,7 @@ class RequestController {
     func getCoffeeBars(lat: Double, lon: Double, completion: @escaping ([JSON]) -> Void) {
         var coffeeBars = [JSON]()
         let url = URL(string: "https://api.foursquare.com/v2/search/recommendations?ll=\(lat),\(lon)&v=20180113&limit=3&query=coffee&client_id=\(client_id)&client_secret=\(client_secret)")!
-        print(url)
+
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
             do {
                 let json = try JSON(data: data!)

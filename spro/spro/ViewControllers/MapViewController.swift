@@ -104,11 +104,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
                 
             return
-        }
+            }
             
             let route = response.routes[0]
             self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-        
         }
     
     }
@@ -117,10 +116,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = self.view.tintColor
-        renderer.lineWidth = 3.5
+        renderer.lineWidth = 4
         
         return renderer
     }
+    
     @IBAction func directionsButtonTapped(_ sender: Any) {
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
         destinationMapItem.name = venueName

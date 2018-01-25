@@ -36,15 +36,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         // Hide UIViews for animation
-        nameLabel.alpha = 0
-        distanceLabel.alpha = 0
-        ratingLabel.alpha = 0
-        adressLabel.alpha = 0
-        hoursLabel.alpha = 0
-        reviewTable.alpha = 0
-        directionsButton.alpha = 0
-        venueImage.alpha = 0
-        imageShadowView.alpha = 0
+        setAlpha(value: 0)
         
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
@@ -93,6 +85,19 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    func setAlpha(value: CGFloat) {
+        // Hide UIViews for animation
+        nameLabel.alpha = value
+        distanceLabel.alpha = value
+        ratingLabel.alpha = value
+        adressLabel.alpha = value
+        hoursLabel.alpha = value
+        reviewTable.alpha = value
+        directionsButton.alpha = value
+        venueImage.alpha = value
+        imageShadowView.alpha = value
+    }
+    
     func addShadow(object: UIView) {
         // Style shadow
         object.layer.masksToBounds = false
@@ -132,15 +137,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         UIView.animate(withDuration: 0.5) {
-            self.nameLabel.alpha = 1
-            self.distanceLabel.alpha = 1
-            self.ratingLabel.alpha = 1
-            self.adressLabel.alpha = 1
-            self.hoursLabel.alpha = 1
-            self.reviewTable.alpha = 1
-            self.directionsButton.alpha = 1
-            self.venueImage.alpha = 1
-            self.imageShadowView.alpha = 1
+            self.setAlpha(value: 1)
         }
     }
     
