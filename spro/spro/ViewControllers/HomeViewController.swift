@@ -52,6 +52,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCurrentLocation()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.barStyle = .default
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -68,7 +73,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.barStyle = .black
         
         // Style the suggestions table
         suggestionsTable.alpha = 0

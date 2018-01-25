@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 // Set info for Foursquare API
-let client_id = "HMRVEYYTHYZNXSVZ31DOI1F3QFZEGPL34ULO2UWZNV0ZOWNJ"
-let client_secret = "4HBTUH4GO0AWNX0MWGPJH0MUVLTXGFMAU1BS3FRM5NBDR4HD"
+let client_id = "LUQIERMX12DOLJDUO555MIABXXL1LXY3LB34V5BW0NGIEPEB"
+let client_secret = "KCXATVV3JBEX10ND13JD1G0QF5FHTHXW4QOKRSFIMPRND44J"
 
 class RequestController {
     
@@ -22,7 +22,7 @@ class RequestController {
     func getCoffeeBars(lat: Double, lon: Double, completion: @escaping ([JSON]) -> Void) {
         var coffeeBars = [JSON]()
         let url = URL(string: "https://api.foursquare.com/v2/search/recommendations?ll=\(lat),\(lon)&v=20180113&limit=3&query=coffee&client_id=\(client_id)&client_secret=\(client_secret)")!
-
+        print(url)
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
             do {
                 let json = try JSON(data: data!)

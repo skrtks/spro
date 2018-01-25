@@ -46,10 +46,10 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.barStyle = .default
         
         // Make back button white
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1813119948, green: 0.2569544911, blue: 0.3566510081, alpha: 1)
     }
     
     func updateUI() {

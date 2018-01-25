@@ -14,6 +14,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var venueImage: UIImageView!
     @IBOutlet weak var cardView: UIView!
+    @IBOutlet weak var imageShadowView: UIView!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -33,6 +34,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Hide UIViews for animation
+        nameLabel.alpha = 0
+        distanceLabel.alpha = 0
+        ratingLabel.alpha = 0
+        adressLabel.alpha = 0
+        hoursLabel.alpha = 0
+        reviewTable.alpha = 0
+        directionsButton.alpha = 0
+        venueImage.alpha = 0
+        imageShadowView.alpha = 0
+        
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
         
@@ -65,7 +78,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         // Configure the background card
-        cardView.layer.cornerRadius = 8
         addShadow(object: cardView)
         
         // Enable the button
@@ -73,6 +85,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Update table data
         self.reviewTable.reloadData()
+        
+        // Set border and shadow voor image
+        venueImage.layer.borderWidth = 4
+        venueImage.layer.borderColor = UIColor.white.cgColor
+        addShadow(object: imageShadowView)
+        
     }
     
     func addShadow(object: UIView) {
@@ -111,6 +129,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.hoursLabel.text = self.venueDetails["venue"]!["hours"]["status"].stringValue
         } else {
             self.hoursLabel.text = "Hours unavailable"
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.nameLabel.alpha = 1
+            self.distanceLabel.alpha = 1
+            self.ratingLabel.alpha = 1
+            self.adressLabel.alpha = 1
+            self.hoursLabel.alpha = 1
+            self.reviewTable.alpha = 1
+            self.directionsButton.alpha = 1
+            self.venueImage.alpha = 1
+            self.imageShadowView.alpha = 1
         }
     }
     
