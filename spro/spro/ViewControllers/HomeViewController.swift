@@ -2,7 +2,10 @@
 //  ViewController.swift
 //  spro
 //
+//  Provides the infrastructure for loading and managing interactions with the home screen.
+//
 //  Created by Sam Kortekaas on 11/01/2018.
+//  Student ID: 10718095
 //  Copyright © 2018 Kortekaas. All rights reserved.
 //
 
@@ -14,7 +17,7 @@ import MapKit
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITextFieldDelegate, MKLocalSearchCompleterDelegate {
     
     // MARK: Outlets
-    @IBOutlet weak var HomeTable: UITableView!
+    @IBOutlet weak var resultsTable: UITableView!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var suggestionsTable: UITableView!
@@ -40,21 +43,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         suggestionsTable.delegate = self
         searchCompleter.delegate = self
         
+        // Make sure suggestions are locations only
+        searchCompleter.filterType = .locationsOnly
+        
         // Set up location services
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
         // Make the table view transparent for animation
-        HomeTable.alpha = 0
+        resultsTable.alpha = 0
         
         // Get current location and request API data
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        activityIndicator.isHidden = false
         getCurrentLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Set the navigation bar style
         self.navigationController?.navigationBar.barStyle = .default
     }
 
@@ -62,12 +69,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidAppear(animated)
         
         // Deselect the selected row
-        let indexPath = HomeTable.indexPathForSelectedRow
+        let indexPath = resultsTable.indexPathForSelectedRow
         if let indexPath = indexPath {
-            self.HomeTable.deselectRow(at: indexPath, animated: true)
+            self.resultsTable.deselectRow(at: indexPath, animated: true)
         }
     }
-    
+
     func updateUI() {
         // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -80,19 +87,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         suggestionsTable.layer.cornerRadius = 4
         
         // Add shadows
-        addShadow(object: HomeTable)
+        addShadow(object: resultsTable)
         
-        // Show/hide certain elements
+        // Hide suggestions
         suggestionsTable.isHidden = true
     
         // Reload table data
-        self.HomeTable.reloadData()
+        self.resultsTable.reloadData()
+        
+        // Hide activity indicators
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         activityIndicator.isHidden = true
         
         // Animate appearance of the table
         UIView.animate(withDuration: 0.5) {
-            self.HomeTable.alpha = 1
+            self.resultsTable.alpha = 1
         }
     }
     
@@ -115,14 +124,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // Manage the delivere of location related events
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Request the current location
         currentLocation = locationManager.location
         
-        // Request data from API with current location
         if let currentLocation = currentLocation {
+            // Show activity indicators
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             activityIndicator.isHidden = false
+            
+            // Request data from API with current location
             RequestController.shared.getCoffeeBars(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (coffeeBars) in
                 self.venueList = coffeeBars
                 DispatchQueue.main.async {
@@ -160,7 +172,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
-            let indexPath = HomeTable.indexPathForSelectedRow!.row
+            let indexPath = resultsTable.indexPathForSelectedRow!.row
 
             // Pass along venue and location information.
             detailViewController.venueId = venueList[indexPath]["venue"]["id"].stringValue
@@ -174,6 +186,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Actions
     @IBAction func searchFieldChanged(_ sender: Any) {
+        // Update the query fragment and request results
         searchCompleter.queryFragment = searchField.text!
         searchSuggestions = searchCompleter.results
         
@@ -191,6 +204,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }, completion: { _ in
             self.suggestionsTable.isHidden = true
         })
+        
+        // Stop the suggestions request
+        searchCompleter.cancel()
     }
     
     @IBAction func refreshButtonTouched(_ sender: Any) {
@@ -208,7 +224,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // Set the number of rows.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == HomeTable {
+        if tableView == resultsTable {
             return venueList.count
         } else {
             return searchSuggestions.count
@@ -216,7 +232,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == HomeTable {
+        if tableView == resultsTable {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCell", for: indexPath) as! HomeTableViewCell
             cell.barImageView.layer.cornerRadius = 8
             cell.nameLabel.text = venueList[indexPath.row]["venue"]["name"].stringValue
@@ -228,7 +244,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let color = UIColor(hexString: "#" + venueList[indexPath.row]["venue"]["ratingColor"].stringValue + alpha)
             cell.ratingLabel.backgroundColor = color
             
-            // set required CLLocations
+            // set required CLLocations for calculating distance
             let venueLat = venueList[indexPath.row]["venue"]["location"]["lat"].doubleValue
             let venueLon = venueList[indexPath.row]["venue"]["location"]["lng"].doubleValue
             let venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
@@ -236,6 +252,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Measuring distance from my location to venue
             cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
             
+            // Get the photo from Foursquare
             let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
             RequestController.shared.getImage(suffix: suffix) { (barImage) in
                 DispatchQueue.main.async {

@@ -2,7 +2,10 @@
 //  DetailViewController.swift
 //  spro
 //
+//  Provides the infrastructure for loading and managing interactions with the detail screen.
+//
 //  Created by Sam Kortekaas on 11/01/2018.
+//  Student ID: 10718095
 //  Copyright © 2018 Kortekaas. All rights reserved.
 //
 
@@ -12,6 +15,7 @@ import CoreLocation
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
+    // MARK: Outlets
     @IBOutlet weak var venueImage: UIImageView!
     @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var imageShadowView: UIView!
@@ -24,6 +28,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var reviewTable: UITableView!
     @IBOutlet weak var directionsButton: UIButton!
     
+    // MARK: Properties
     var venueId: String!
     var image: UIImage!
     var venueDetails = [String: JSON]()
@@ -31,7 +36,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var venueLocation: CLLocation!
     var currentLocation: CLLocation!
     
-
+    // MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,9 +46,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
         
-        // Disable some functions if current location is missing
+        // Disable distance if current location is missing
         if currentLocation == nil {
-            directionsButton.isHidden = true
             distanceLabel.isHidden = true
         }
         
@@ -69,22 +73,23 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             venueImage.image = image
         }
         
-        // Configure the background card
+        // Add shadow to the background card
         addShadow(object: cardView)
         
-        // Enable the button
+        // Enable the map button
         directionsButton.isEnabled = true
         
         // Update table data
         self.reviewTable.reloadData()
         
-        // Set border and shadow voor image
+        // Set border and shadow for image
         venueImage.layer.borderWidth = 4
         venueImage.layer.borderColor = UIColor.white.cgColor
         addShadow(object: imageShadowView)
         
     }
     
+    // Sets the alpha value for a UIView
     func setAlpha(value: CGFloat) {
         // Hide UIViews for animation
         nameLabel.alpha = value
@@ -98,6 +103,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         imageShadowView.alpha = value
     }
     
+    // Adds shadow to a UIView
     func addShadow(object: UIView) {
         // Style shadow
         object.layer.masksToBounds = false
@@ -107,6 +113,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
+    // Update the labels with available information
     func setLabels() {
         // Set labels
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
@@ -136,11 +143,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.hoursLabel.text = "Hours unavailable"
         }
         
+        // Show the labels
         UIView.animate(withDuration: 0.5) {
             self.setAlpha(value: 1)
         }
     }
     
+    // Request reviews from Foursquare
     func getReviews() {
         RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
             self.venueReviews = reviews
@@ -151,6 +160,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
+    // Get venue details and image from Foursquare
     func getDetails() {
         RequestController.shared.getDetails(venueId: venueId) { (details) in
             self.venueDetails = details
@@ -170,13 +180,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // Calculate the distance between two points
     func calculateDistance() {
         // set required CLLocations for CL Distance
         let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
         let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
         venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
         
-        //Measuring distance from my location to venue
+        //Measuring distance from current location to venue
         if let currentLocation = currentLocation {
             self.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
         }
@@ -202,6 +213,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return venueReviews.count
     }
 
+    // Generate cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewTableViewCell
 
