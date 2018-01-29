@@ -74,3 +74,19 @@ Vandaag heb ik het een en ander opgeschoond.
 - Aantal interface problemen opgelost.
 - Als bepaalde informatie niet beschikbaar is blijft het label niet meer leeg.
 - Aantal bugs met het verwerken van de automatisch gegenereerde adressen opgelost. 
+
+## Donderdag 25 - 01
+
+Ik heb vandaag het een en ander geaxperimenteerd met een scroll view die de hele detailpagina laat scrollen, i.p.v. alleen de reviews. Dit blijkt echter nog vrij lastig. Het was denk ik beter geweest als ik dat vanaf het begin had willen doen en er steeds rekening mee had gehouden. Ik ga het idee morgen tijdens de presentaties even voorleggen en aan de hand daarvan bepalen of ik er nog energie in ga stoppen of niet. 
+
+Om toch nog iets nuttigs te doen heb ik een icoontje en een opstartscherm ontworpen voor de app. 
+
+## Vrijdag 26 - 01
+
+Ik heb tijdens de presentaties het idee van gisteren voorgelegd en daar kwam uit dat hoe ik het nu heb eigenlijk helemaal goed is. Dus ik ga het laten.
+
+## Maandag 29 - 01
+
+Kleine probleempjes opgelost met de UI. Het was niet duidelijk als de refresh en map knop werken ingedrukt. 
+
+Ik heb vandaag even goed de feedback van App Studio bekeken en heb die verwerkt in de code van ‘spro’. Daarnaast heb ik even mijn code echt goed nagelopen en nog wat ontbrekende comments toegevoegd. Als laatste heb ik even gekeken naar mijn ToDo list op better code hub en heb ik nog een aantal functies iets korter gemaakt en ik heb een .gitignore toegevoegd.
