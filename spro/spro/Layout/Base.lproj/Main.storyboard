@@ -357,7 +357,7 @@
                                 <rect key="frame" x="45" y="64" width="285" height="185"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BkA-DU-q7k">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="BkA-DU-q7k">
                                 <rect key="frame" x="45" y="64" width="285" height="185"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="185" id="wpL-CS-M5g"/>
@@ -573,6 +573,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="PlaceholderImage" width="277" height="178"/>
         <image name="TableCellBackground" width="355" height="112"/>
         <image name="ic_map_48pt_3x" width="33" height="33"/>
         <image name="ic_map_selected2_48pt_3x" width="33" height="33"/>
