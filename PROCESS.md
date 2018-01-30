@@ -90,3 +90,9 @@ Ik heb tijdens de presentaties het idee van gisteren voorgelegd en daar kwam uit
 Kleine probleempjes opgelost met de UI. Het was niet duidelijk als de refresh en map knop werken ingedrukt. 
 
 Ik heb vandaag even goed de feedback van App Studio bekeken en heb die verwerkt in de code van ‘spro’. Daarnaast heb ik even mijn code echt goed nagelopen en nog wat ontbrekende comments toegevoegd. Als laatste heb ik even gekeken naar mijn ToDo list op better code hub en heb ik nog een aantal functies iets korter gemaakt en ik heb een .gitignore toegevoegd.
+
+## Dinsdag 30 - 01
+
+Code review gedaan met David. Bij hem was de code nog niet helemaal op orde en ik heb vooral tips gegeven voor het duidelijker indelen van de code zodat het makkelijker wordt om er achter te komen hoe de code in elkaar zit. David vond mijn code base overzichtelijk en de enige belangrijke opmerking die hij gegeven heeft was dat ik nog even goed naar mijn comments moet kijken. Er zijn nu wat overbodige comments die ik misschien beter weg kan halen. 
+
+Ik heb mijn comments herzien en een aantal functies voorzien van “Swift doc’s” voor iets meer overzicht. 
