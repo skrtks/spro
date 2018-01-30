@@ -30,7 +30,7 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Make the table view transparent for animation
         resultsTable.alpha = 0
         
-        getCoordinates() { (locationData) in
+        getCoordinates(address: searchQuery) { (locationData) in
             // Show activity indicator
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             if let name = locationData?.name {
@@ -69,12 +69,17 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Create  CLPlacemark from a address string
-    func getCoordinates(completion: @escaping (CLPlacemark?) -> Void) {
+    /**
+    Create CLPlacemark from a address string
+     - Parameter address: the address to convert to CLPlacemark
+    */
+    func getCoordinates(address: String, completion: @escaping (CLPlacemark?) -> Void) {
         // Get the coordinates for address
         let geocoder = CLGeocoder()
         var placemark: CLPlacemark?
-        geocoder.geocodeAddressString(searchQuery) { placemarks, error in
+        
+        // Convert to CLPlacemark
+        geocoder.geocodeAddressString(address) { placemarks, error in
             if let placemarks = placemarks {
                 placemark = placemarks[0]
                 completion(placemark)
@@ -87,14 +92,13 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Show alert
+    /// Show alert
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }
     
-    // Prepare for segue to detail view.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
@@ -106,18 +110,14 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     // MARK: Table view data source
-    
-    // Set number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    // Set number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venueList.count
     }
 
-    // Generate the table cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as! ResultsTableViewCell
         

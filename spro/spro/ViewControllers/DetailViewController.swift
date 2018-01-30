@@ -46,7 +46,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Disable button to prevent tapping before all data is loaded
         directionsButton.isEnabled = false
         
-        // Disable distance if current location is missing
+        // Disable distance to venue if current location is not provided
         if currentLocation == nil {
             distanceLabel.isHidden = true
         }
@@ -65,31 +65,26 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func updateUI() {
-        calculateDistance()
+        // set required CLLocations for CL Distance
+        let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
+        let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
+        calculateDistance(lat: venueLat, lon: venueLon)
         setLabels()
+        addShadow(object: cardView)
+        directionsButton.isEnabled = true
+        self.reviewTable.reloadData()
         
-        // Set the image
+        // Set and style the venue image
         if let image = image {
             venueImage.image = image
         }
-        
-        // Add shadow to the background card
-        addShadow(object: cardView)
-        
-        // Enable the map button
-        directionsButton.isEnabled = true
-        
-        // Update table data
-        self.reviewTable.reloadData()
-        
-        // Set border and shadow for image
         venueImage.layer.borderWidth = 4
         venueImage.layer.borderColor = UIColor.white.cgColor
         addShadow(object: imageShadowView)
         
     }
     
-    // Sets the alpha value for a UIView
+    /// Sets the alpha value for a number of UIViews
     func setAlpha(value: CGFloat) {
         // Hide UIViews for animation
         nameLabel.alpha = value
@@ -103,7 +98,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         imageShadowView.alpha = value
     }
     
-    // Adds shadow to a UIView
+    /// Adds shadow to a UIView
     func addShadow(object: UIView) {
         // Style shadow
         object.layer.masksToBounds = false
@@ -113,7 +108,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    // Update the labels with available information
+    /// Update the labels with available information
     func setLabels() {
         // Set labels
         self.nameLabel.text = self.venueDetails["venue"]!["name"].stringValue
@@ -149,9 +144,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Request reviews from Foursquare
+    /// Request reviews from Foursquare
     func getReviews() {
-        RequestController.shared.getReviews(venueID: self.venueId, completion: { (reviews) in
+        RequestController.shared.getReviews(venueId: self.venueId, completion: { (reviews) in
             self.venueReviews = reviews
             
             DispatchQueue.main.async {
@@ -160,7 +155,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
-    // Get venue details and image from Foursquare
+    /// Get venue details and image from Foursquare
     func getDetails() {
         RequestController.shared.getDetails(venueId: venueId) { (details) in
             self.venueDetails = details
@@ -168,7 +163,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let suffix = self.venueDetails["venue"]!["photos"]["groups"][0]["items"][0]["suffix"].stringValue
             RequestController.shared.getImage(suffix: suffix, completion: { (image) in
                 self.image = image
-                
+                // Update UI on main queue (for loading image on slow networks)
                 DispatchQueue.main.async {
                     self.updateUI()
                 }
@@ -180,12 +175,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Calculate the distance between two points
-    func calculateDistance() {
-        // set required CLLocations for CL Distance
-        let venueLat = self.venueDetails["venue"]!["location"]["lat"].doubleValue
-        let venueLon = self.venueDetails["venue"]!["location"]["lng"].doubleValue
-        venueLocation = CLLocation(latitude: venueLat, longitude: venueLon)
+    /**
+    Calculate the distance between two locations
+    - Parameter lat: The latitude
+    - Parameter lon: The longitude
+    */
+    func calculateDistance(lat: Double, lon: Double) {
+        venueLocation = CLLocation(latitude: lat, longitude: lon)
         
         //Measuring distance from current location to venue
         if let currentLocation = currentLocation {
@@ -193,7 +189,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Prepare for segue to map view.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToMap" {
             let mapViewController = segue.destination as! MapViewController
@@ -203,21 +198,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    // Set the number of sections.
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    // Set the number of rows.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venueReviews.count
     }
 
-    // Generate cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewTableViewCell
-
-
         cell.nameLabel.text = venueReviews[indexPath.row]["user"]["firstName"].stringValue
         cell.bodyLabel.text = venueReviews[indexPath.row]["text"].stringValue
 

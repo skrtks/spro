@@ -33,12 +33,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     // MARK: Functions
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-
-        // Set delegates
         searchField.delegate = self
         suggestionsTable.delegate = self
         searchCompleter.delegate = self
@@ -61,14 +58,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Set the navigation bar style
         self.navigationController?.navigationBar.barStyle = .default
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Deselect the selected row
         let indexPath = resultsTable.indexPathForSelectedRow
         if let indexPath = indexPath {
             self.resultsTable.deselectRow(at: indexPath, animated: true)
@@ -76,7 +70,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func updateUI() {
-        // Make the nav bar transparent from https://stackoverflow.com/questions/19082963/how-to-make-completely-transparent-navigation-bar-in-ios-7#19323215
+        // Make the nav bar transparent
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -85,14 +79,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         suggestionsTable.alpha = 0
         suggestionsTable.layer.masksToBounds = true
         suggestionsTable.layer.cornerRadius = 4
-        
-        // Add shadows
         addShadow(object: resultsTable)
         
-        // Hide suggestions
         suggestionsTable.isHidden = true
-    
-        // Reload table data
         self.resultsTable.reloadData()
         
         // Hide activity indicators
@@ -105,9 +94,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Adds dropshadow to a UIView
+    /// Adds dropshadow to a UIView
     func addShadow(object: UIView) {
-        // Style shadow
         object.layer.masksToBounds = false
         object.layer.shadowOpacity = 0.2
         object.layer.shadowColor = UIColor.black.cgColor
@@ -115,7 +103,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    // Get the current location of the user
+    /// Get the current location of the user
     func getCurrentLocation() {
         if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             locationManager.requestLocation()
@@ -124,7 +112,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Manage the delivere of location related events
+    /// Manage the delivering of location related events
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Request the current location
         currentLocation = locationManager.location
@@ -144,31 +132,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    // Show error when reported
+    /// Show error when reported
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         showAlert(title: "Spro", message: "Something went wrong: \(error.localizedDescription)")
     }
     
-    // Show a alert about location services
+    /// Show a alert about location services
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         present(alert, animated: true)
     }
     
-    // Hide the keyboard when touching oustide keyboard
+    /// Hide the keyboard when touching outside keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    // When return key pressed
+    /// Handles pressing the return key
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchField.resignFirstResponder()
         performSegue(withIdentifier: "SearchSegue", sender: nil)
         return true
     }
     
-    // Prepare for segue to detail view.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
@@ -186,7 +173,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: Actions
     @IBAction func searchFieldChanged(_ sender: Any) {
-        // Update the query fragment and request results
+        // Update the query fragment and request suggestion results
         searchCompleter.queryFragment = searchField.text!
         searchSuggestions = searchCompleter.results
         
@@ -210,19 +197,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func refreshButtonTouched(_ sender: Any) {
-        // Get fresh data for current location
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCurrentLocation()
     }
     
     // MARK: Tableview
-    
-    // Set the number of sections.
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    // Set the number of rows.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == resultsTable {
             return venueList.count
@@ -252,7 +235,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Measuring distance from my location to venue
             cell.distanceLabel.text = String(Int(currentLocation.distance(from: venueLocation))) + " meters"
             
-            // Get the photo from Foursquare
+            // Get venue photo from Foursquare
             let suffix = venueList[indexPath.row]["photo"]["suffix"].stringValue
             RequestController.shared.getImage(suffix: suffix) { (barImage) in
                 DispatchQueue.main.async {
@@ -280,7 +263,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
-// Exstension for updating the table view when completion is updated, from: https://stackoverflow.com/questions/41136150/swift-mapkit-autocomplete#41150928
+// Exstension for updating the table view when completion is updated (from https://stackoverflow.com/questions/41136150/swift-mapkit-autocomplete#41150928)
 extension HomeViewController {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchSuggestions = completer.results
@@ -288,7 +271,6 @@ extension HomeViewController {
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        // handle error
         print(error.localizedDescription)
     }
 }

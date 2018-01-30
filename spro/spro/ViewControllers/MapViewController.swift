@@ -48,7 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         
-        // Add annotations for venue
+        // Add annotations for venue on map
         let venueAnnotation = VenueAnnotation(title: venueName, coordinate: CLLocationCoordinate2D(latitude: venueLocation.coordinate.latitude, longitude: venueLocation.coordinate.longitude))
         mapView.addAnnotation(venueAnnotation)
         
@@ -67,9 +67,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         addShadow(object: directionsButton)
     }
     
-    // Add shadow to a UIView
+    /// Add shadow to a UIView
     func addShadow(object: UIView) {
-        // Style shadow
         object.layer.masksToBounds = false
         object.layer.shadowOpacity = 0.2
         object.layer.shadowColor = UIColor.black.cgColor
@@ -77,7 +76,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         object.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    // Set current location indicator if allowed from https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started
+    /// Set current location indicator if allowed (from https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started)
     func checkLocationAuthorizationStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             mapView.showsUserLocation = true
@@ -86,7 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
-    // Zoom and center the map from https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started
+    /// Zoom and center the map (from https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started)
     let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
         // make MKCoordinateRegion from the specified coordinate and distance
@@ -94,7 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    // Sets MapItems and requests route using MKDirections from https://www.ioscreator.com/tutorials/draw-route-mapkit-tutorial
+    /// Sets MapItems and requests route using MKDirections (from https://www.ioscreator.com/tutorials/draw-route-mapkit-tutorial)
     func getRoute() {
         // Get MKMapItem for locations
         let sourcePlacemark = MKPlacemark(coordinate: currentLocation.coordinate, addressDictionary: nil)
@@ -102,7 +101,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let destinationPlacemark = MKPlacemark(coordinate: venueLocation.coordinate, addressDictionary: nil)
         destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         
-        // Request route information from https://stackoverflow.com/questions/28723490/display-route-on-map-in-swift
+        // Request route information (from https://stackoverflow.com/questions/28723490/display-route-on-map-in-swift)
         let request: MKDirectionsRequest = MKDirectionsRequest()
         
         // Set start, destination, and transport type
@@ -131,7 +130,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     }
     
-    // Render the polyline
+    /// Render the polyline
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = self.view.tintColor
