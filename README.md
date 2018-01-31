@@ -8,7 +8,7 @@ Door Sam Kortekaas.
 Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaakjes op loopafstand van je huidige locatie zien, zodat je makkelijk een keuze kunt maken. 
 
 ## Gebruik
-Om de app te gebruiken moet je er voor zorgen dat je een actieve internetverbinding hebt en locatievoorzieningen aan hebt. 
+Om de app te gebruiken moet je er voor zorgen dat je een actieve internetverbinding hebt en locatievoorzieningen ingeschakeld zijn.
 
 ## Version 
 Version 1.0
@@ -33,7 +33,7 @@ Apparaten met IOS 11 of hoger. iPad wordt niet ondersteunt.
 Sam Kortekaas
 Mail: samkortekaas1@gmail.com
 
-#### Screenshots
+## Screenshots
 
 <img src="doc/HomeScreen.png" alt="Home Screen" height="500">
 <img src="doc/Suggestions.png" alt="Suggestions" height="500">
