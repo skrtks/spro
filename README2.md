@@ -30,4 +30,4 @@ Mail: samkortekaas1@gmail.com
 
 #### Screenshots
 
-<img src="doc/HomeScreen.png" alt="Home Screen" height="300" width="100">
+<img src="doc/HomeScreen.png" alt="Home Screen" height="300">
