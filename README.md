@@ -1,58 +1,41 @@
-# Project voorstel SPRO
+# Spro (espresso)
+Door Sam Kortekaas.
+
 [![BCH compliance](https://bettercodehub.com/edge/badge/skrtks/spro?branch=master)](https://bettercodehub.com/)
 
-Sam Kortekaas - 10718095
-Programmeerpoject semester 1 2017-2018
+## Beschrijving
 
-## Het probleem
-Hou je van [”specialty coffee”](https://en.wikipedia.org/wiki/Specialty_coffee), maar vind je het vaak moeilijk om snel een goed specialty coffee zaakje te vinden? Google Maps laat alleen een onoverzichtelijk geheel van alle plekken zien en op internet naar lijstjes gaan zoeken in ook niet al te makkelijk. Hierdoor verspil je tijd aan zoeken, die je ook aan een fijne koffiepauze had kunnen besteden!
-
-## De oplossing
 Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaakjes op loopafstand van je huidige locatie zien, zodat je makkelijk een keuze kunt maken. 
 
-### Impressie
-![](doc/sproConceptHome.jpg)
+## Gebruik
+Om de app te gebruiken moet je er voor zorgen dat je een actieve internetverbinding hebt en locatievoorzieningen ingeschakeld zijn.
 
-Op de eerste afbeelding is het beginscherm te zien. Dit scherm wordt getoond zodra de app wordt geopend. Op het beginscherm worden de drie dichtstbijzijnde koffiezaakjes weergegeven. Daarnaast is er de mogelijkheid om een zoekactie te doen voor een andere locatie dan de huidige. 
+## Version 
+Version 1.0
 
-![](doc/sproConceptResults.jpg)
+## Works on
+Apparaten met IOS 11 of hoger. iPad wordt niet ondersteunt. 
 
-Op de resultatenpagina worden de resultaten voor een andere locatie weergegeven. 
+## Credits
+#### JSON extractie hulpmiddel SwiftyJSON:
+- https://github.com/SwiftyJSON/SwiftyJSON
+#### Tabel updaten als nieuwe automatische suggesties beschikbaar zijn: 
+- https://stackoverflow.com/questions/41136150/swift-mapkit-autocomplete#41150928
+#### Huidige locatie van de gebruiker op de kaar laten zien en de kaar schalen:
+- https://www.raywenderlich.com/160517/mapkit-tutorial-getting-started
+#### Een route aanvragen en laten zien met MKDirections:
+- https://www.ioscreator.com/tutorials/draw-route-mapkit-tutorial
+#### Alle data, afbeeldingen en reviews die gebonden zijn aan koffiezaken zijn afkomstig van Foursquare:
+- https://developer.foursquare.com/docs/terms-of-use/overview
 
-![](doc/sproConceptDetail.jpg)
+## Contact
 
-Als een resultaat op het beginscherm of op de resultatenpagina wordt geselecteerd dan wordt het detailscherm getoond. Op dit scherm is wat basisinformatie te zien over het koffiezaakje. Daarnaast worden een aantal reviews weergegeven. De knop “Directions” brengt de gebruiker naar de Apple Maps applicatie waar een routebeschrijving wordt gestart. De “View on map” knop brengt de gebruiker naar een nieuw scherm waar de locatie op de kaart wordt weergegeven. 
+Sam Kortekaas
+Mail: samkortekaas1@gmail.com
 
-![](doc/sproConceptMap.jpg)
+## Screenshots
 
-In de kaartweergave wordt de locatie van het koffiezaakje op de kaart weergeven. Ook wordt de huidige locatie van de gebruiker weergegeven. 
-
-### Belangrijkste functies
-- Direct laten zien van drie koffiezaakjes in de buurt en hoeveel minuten het lopen is naar die plekken (MVP).
-- Zoeken naar koffiezaakjes op andere locaties dan de huidige.
-- Het verkrijgen van meer informatie, zoals openingstijden, foto’s en recenties, in de detailweergave (MVP). 
-- De locatie van het koffiezaakje bekijken op een kaart (MVP).
-- De route laten zien van de huidige locatie naar de bestemming (MVP).
-- Een turn-by-turn routebeschrijving aanvragen in Apple Maps (MVP).
-
-### Optionele functie
-- Indicatie in de detailweergave waarop te zien is of een koffiezaakje fotogeniek is. Op basis van het gemiddelde aantal instagram posts op die locatie. 
-
-## Vereisten
-Data voor de locatie, openingstijden, foto’s etc. komt van de [Foursquare Places API](https://developer.foursquare.com/places-api).  De API levert deze data aan als JSON. Om de huidige locatie van de gebruiker te bepalen wordt gebruik gemaakt van het [Core Location Framework](https://developer.apple.com/documentation/corelocation) dat door apple geleverd wordt. Daarnaast moet een kaart worden gegenereerd met de locatie van het gekozen koffiezaakje. Hiervoor zal gebruik gemaakt worden van [MapKit](https://developer.apple.com/documentation/mapkit). 
-
-Optioneel is het bepalen of een koffiezaakje fotogeniek is aan de hand van het aantal instagram posts op die locatie. Om deze data te verkrijgen kan gebruik gemaakt worden van de [location endpoints](https://www.instagram.com/developer/endpoints/locations/) van de Instagram API. 
-
-Een aantal voorbeelden van apps die ongeveer het zelfde doen als deze app zijn Apple Maps, Google Maps, Foursquare en Yelp. Deze apps doen allemaal ongeveer het zelfde, maar op net een andere manier. Wat bij alle apps opvalt, is dat ze vrij veel resultaten laten zien.  Ook resultaten die vrij ver zijn. In deze app is het de bedoeling om de gebruiker niet te overweldigen met resultaten. 
-
-In de onderstaande screenshots is te zien dat Apple Maps en Google Maps een groot aantal resultaten laten zien. 
-
-![](doc/AppleMaps.PNG) _Apple Maps_
-
-![](doc/GoogleMaps.PNG) _Google Maps_
-
-Als in google maps een resultaat geselecteerd wordt, komt een overzicht tevoorschijn dat erg duidelijk is. Ik wil deze pagina graag als voorbeeld nemen voor deze app. Het is prettig dat de belangrijke informatie in een keer beschikbaar is. Dit is te zien op de onderstaande afbeelding. 
-
-![](doc/GoogleDetail.jpeg)
-
-Ik verwacht dat het moeilijkste deel van de implementatie het implementeren van de kaart wordt. De documentatie hiervoor is gelukkig heel uitgebreid. 
+<img src="doc/HomeScreen.png" alt="Home Screen" height="600">
+<img src="doc/Suggestions.png" alt="Suggestions" height="600">
+<img src="doc/DetailScreen.png" alt="Detail Screen" height="600">
+<img src="doc/MapScreen.png" alt="Map Screen" height="600">
