@@ -11,13 +11,13 @@ Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaak
 
 De app is onderverdeelt in vier view controllers. De ‘HomeViewController’ is het eerste scherm waar de gebruikers terecht komt na het openen van de app. Op dit scherm zijn de drie beste koffiezaakjes in de buurt te zien. Daarnaast is zoekbalk waarmee de gebruiker op de andere locatie kan zoeken. In de bijbehorende klasse is dan ook alle code ondergebracht die nodig is om dit scherm te laten zien en om interactie met de UI elementen te verwerken. 
 
-In de ‘class DetailViewController’ staat alle code die nodig is om het detailscherm te laten zien. Dit scherm bevat meer informatie over een koffiezaak die is geselecteerd op het beginscherm. Vanuit deze view is het mogelijk om de MapView te bereiken.
+- __class DetailViewController:__ alle code die nodig is om het detailscherm te laten zien. Dit scherm bevat meer informatie over een koffiezaak die is geselecteerd op het beginscherm. Vanuit deze view is het mogelijk om de MapView te bereiken.
 
-De ‘class ResultViewController’ wordt gebruikt om zoekresultaten voor een door de gebruiker opgevraagde locatie weer te geven. Vanuit dit scherm kan  ook genavigeerd worden naar het detailscherm. 
+- __class ResultViewController:__ wordt gebruikt om zoekresultaten voor een door de gebruiker opgevraagde locatie weer te geven. Vanuit dit scherm kan  ook genavigeerd worden naar het detailscherm. 
 
-De laatste klasse is de ‘class MapViewController’. De code in deze klasse zorgt er voor dat de kaart in de UIMapView op de juiste manier weergegeven wordt en dat er een route van de huidige locatie naar de bestemming wordt weergegeven. Vanuit het Kaartscherm is het mogelijk om een routebeschrijving aan te vragen in de maps applicatie. 
+- __class MapViewController:__ de code in deze klasse zorgt er voor dat de kaart in de UIMapView op de juiste manier weergegeven wordt en dat er een route van de huidige locatie naar de bestemming wordt weergegeven. Vanuit het Kaartscherm is het mogelijk om een routebeschrijving aan te vragen in de maps applicatie. 
 
-In ‘class RequestController’ staat alle code die nodig is om te communiceren met de API van Foursquare. 
+- __class RequestController:__ staat alle code die nodig is om te communiceren met de API van Foursquare. 
 
 In de onderstaande alinea’s zal een uitgebreid overzicht gegeven worden van de code in de verschillende klassen. 
 
