@@ -4,7 +4,7 @@
 
 Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaakjes op loopafstand van je huidige locatie zien, zodat je makkelijk een keuze kunt maken.
 
-<img src="doc/HomeScreen.png" alt="Home Screen" height=“500">
+<img src="doc/HomeScreen.png" alt="Home Screen" height="500">
 
 ## Technische aspecten
 ### Globaal overzicht
