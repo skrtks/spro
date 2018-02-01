@@ -1,8 +1,7 @@
 # Style guide voor spro in Swift
 
 1. Alle functies zijn voorzien van een duidelijke comment
-2. Comments beginnen met een hoofdletter. 
-3. Comments langer dan één regel eindigen op een punt.
+2. Comments beginnen met een hoofdletter, maar hoeven niet op een punt te eindigen.
 4. Comments zijn zo kort mogelijk en worden alleen gebruikt als het echt nodig is. De code moet zoek veel mogelijk
    voor zich spreken (zoals Swift is ontworpen).
 5. Klassen en structures beginnen met een hoofletter.
