@@ -142,7 +142,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Actions
     @IBAction func directionsButtonTapped(_ sender: Any) {
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
-        destinationMapItem.name = venueName
+        if let destinationMapItem = destinationMapItem {
+            destinationMapItem.name = venueName
+        } else {
+            let destinationPlacemark = MKPlacemark(coordinate: venueLocation.coordinate, addressDictionary: nil)
+            destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+            destinationMapItem.name = venueName
+        }
+        
         destinationMapItem.openInMaps(launchOptions: launchOptions)
     }
     
