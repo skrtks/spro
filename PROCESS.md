@@ -77,7 +77,7 @@ Vandaag heb ik het een en ander opgeschoond.
 
 ## Donderdag 25 - 01
 
-Ik heb vandaag het een en ander geaxperimenteerd met een scroll view die de hele detailpagina laat scrollen, i.p.v. alleen de reviews. Dit blijkt echter nog vrij lastig. Het was denk ik beter geweest als ik dat vanaf het begin had willen doen en er steeds rekening mee had gehouden. Ik ga het idee morgen tijdens de presentaties even voorleggen en aan de hand daarvan bepalen of ik er nog energie in ga stoppen of niet. 
+Ik heb vandaag het een en ander geëxperimenteerd met een scroll view die de hele detailpagina laat scrollen, i.p.v. alleen de reviews. Dit blijkt echter nog vrij lastig. Het was denk ik beter geweest als ik dat vanaf het begin had willen doen en er steeds rekening mee had gehouden. Ik ga het idee morgen tijdens de presentaties even voorleggen en aan de hand daarvan bepalen of ik er nog energie in ga stoppen of niet. 
 
 Om toch nog iets nuttigs te doen heb ik een icoontje en een opstartscherm ontworpen voor de app. 
 
@@ -96,3 +96,11 @@ Ik heb vandaag even goed de feedback van App Studio bekeken en heb die verwerkt 
 Code review gedaan met David. Bij hem was de code nog niet helemaal op orde en ik heb vooral tips gegeven voor het duidelijker indelen van de code zodat het makkelijker wordt om er achter te komen hoe de code in elkaar zit. David vond mijn code base overzichtelijk en de enige belangrijke opmerking die hij gegeven heeft was dat ik nog even goed naar mijn comments moet kijken. Er zijn nu wat overbodige comments die ik misschien beter weg kan halen. 
 
 Ik heb mijn comments herzien en een aantal functies voorzien van “Swift doc’s” voor iets meer overzicht. 
+
+## Woensdag 31 - 01
+
+Vandaag begonnen aan het maken van het final report en het aanpassen van de readme etc.
+
+## Donderdag 01 - 02
+
+Verder gewerkt aan het verslag.
