@@ -11,21 +11,23 @@ Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaak
 
 De app is onderverdeelt in vier view controllers die hieronder kort worden beschreven.  
 
-- __class DetailViewController:__ alle code die nodig is om het detailscherm te laten zien. Dit scherm bevat meer informatie over een koffiezaak die is geselecteerd op het beginscherm. Vanuit deze view is het mogelijk om de MapView te bereiken.
+- __(class) HomeViewController:__ bevat de code voor het laden en laten zien van drie suggesties voor koffiezaakjes in de buurt van de huidige locatie en het geven van suggesties op een zoekopdracht.
 
-- __class ResultViewController:__ wordt gebruikt om zoekresultaten voor een door de gebruiker opgevraagde locatie weer te geven. Vanuit dit scherm kan  ook genavigeerd worden naar het detailscherm. 
+- __(class) DetailViewController:__ alle code die nodig is om het detailscherm te laten zien. Dit scherm bevat meer informatie over een koffiezaak die is geselecteerd op het beginscherm. Vanuit deze view is het mogelijk om de MapView te bereiken.
 
-- __class MapViewController:__ de code in deze klasse zorgt er voor dat de kaart in de UIMapView op de juiste manier weergegeven wordt en dat er een route van de huidige locatie naar de bestemming wordt weergegeven. Vanuit het Kaartscherm is het mogelijk om een routebeschrijving aan te vragen in de maps applicatie. 
+- __(class) ResultViewController:__ wordt gebruikt om zoekresultaten voor een door de gebruiker opgevraagde locatie weer te geven. Vanuit dit scherm kan ook genavigeerd worden naar het detailscherm. 
 
-- __class RequestController:__ staat alle code die nodig is om te communiceren met de API van Foursquare. 
+- __(class) MapViewController:__ de code in deze klasse zorgt er voor dat de kaart in de UIMapView op de juiste manier weergegeven wordt en dat er een route van de huidige locatie naar de bestemming wordt weergegeven. Vanuit het Kaartscherm is het mogelijk om een routebeschrijving aan te vragen in de maps applicatie. 
 
-- __Map Instances:__ in deze map staan vier custom cellen en een custom map annotation.
+- __(class) RequestController:__ staat alle code die nodig is om te communiceren met de API van Foursquare. 
+
+- __(map) Instances:__ in deze map staan vier custom cellen en een custom map annotation.
 
 In de onderstaande alinea’s wordt een uitgebreider overzicht gegeven van de code in de verschillende klassen. 
 
 ### View Controllers
 #### class HomeViewController
-Tijdens het laden van de view die aan deze klasse gekoppeld is, wordt als eerste de huidige locatie opgevraagd met behulp van __CLLocationManager’s requestLocation()__. Zodra deze functie een locatie heeft verkregen, wordt uit de klasse ‘RequestController’ de closure ‘__getCoffeeBars(lat: , lon:)__’  aangeroepen. Zodra de completion handler in deze functie data heeft verkregen wordt deze opgeslagen in de ‘venueList’. De data wordt vervolgens in de ‘main queue’ gebruikt om UIViews te updaten. 
+Tijdens het laden van de view die aan deze klasse gekoppeld is, wordt als eerste de huidige locatie opgevraagd met behulp van __CLLocationManager’s requestLocation()__. Zodra deze functie een locatie heeft verkregen, wordt uit de klasse ‘RequestController’ de closure __‘getCoffeeBars(lat: , lon:)’__  aangeroepen. Zodra de completion handler in deze functie data heeft verkregen wordt deze opgeslagen in de ‘venueList’. De data wordt vervolgens in de ‘main queue’ gebruikt om UIViews te updaten. 
 
 Naast het opvragen van de locatie en informatie over de koffiezaakjes, bevat deze klasse ook code voor het laten zien van suggesties voor adressen en locaties. Hiervoor wordt klasse __MKLocalSearchCompleter()__ gebruikt. De resultaten worden geleverd door searchCompleter.results en worden weergegeven in een tabel die verschijnt zodra de gebruiker begin met typen. 
 
@@ -41,18 +43,18 @@ De segue naar deze controller levert altijd een ‘venueId’ aan. Dit is een un
 
 De functie __getDetails()__ vraagt eerst details aan de API en slaat die op in ‘venueDetails’. Vervolgens wordt een afbeelding voor de plek verkregen die word opgeslagen in ‘image’. In de main queue worden dan de UI geüpdatet met __updateUI()__. 
 
-Deze klasse bevat eveneens code om een afstand tussen twee punten te bepalen. Soortgelijk aan de code in de HomeViewController. Wanner het detailscherm bereikt wordt via het selecteren van een resultaat in de ‘Result View’, dan wordt geen afstand weergegeven omdat die waarschijnlijk niet relevant is. 
+Deze klasse bevat eveneens code om een afstand tussen twee punten te bepalen. Soortgelijk aan de code in de HomeViewController. Wanner het detailscherm bereikt wordt via het selecteren van een resultaat in de ‘Result View’, dan wordt geen afstand weergegeven omdat die waarschijnlijk niet relevant is (stel je zoekt ergens ver weg. 
 
 De detail klasse bevat een segue die leidt naar de kaart weergave. 
 
 #### class MapViewController
 De kaartweergave wordt aangestuurd door de klasse ‘MapViewController’. Deze klasse is vrij simpel en bevat code voor het schalen en centreren van de kaart en voor het laten zien van een route op de kaart. Als de gebruiker de knop ‘Directions in Apple Maps’ aanklikt wordt de gebruiker naar de Maps applicatie gebracht, waarin vervolgens een stap-voor-stap wandelroute wordt gegenereerd. 
 
-Als de gebruiker terechtkomt in de kaartweergave vanuit een detailweergave die is bereikt vanuit het beginscherm, dan wordt de kaart gecentreerd op de huidige locatie en wordt een route weergegeven. Als de kaartweergave echter bereikt wordt vanuit een detailweergave die bereikt is vanuit het resultatenscherm. Dan wordt de kaart gecentreerd op de locatie van het geselecteerde koffiezaakje en wordt geen route gegeven. Hier is voor gekozen omdat een locatie die gevonden is via een zoekactie waarschijnlijk niet op loopafstand ligt. Het is dan fijner als je gewoon de locatie van het zaakje te zien krijgt en daar niet naar hoeft te zoeken op de kaart. 
+Als de gebruiker terechtkomt in de kaartweergave vanuit een detailweergave die is bereikt vanuit het beginscherm, dan wordt de kaart gecentreerd op de huidige locatie en wordt een route weergegeven. Als de kaartweergave echter bereikt wordt via het resultatenscherm, dan wordt de kaart gecentreerd op de locatie van het geselecteerde koffiezaakje en wordt geen route gegeven. Hier is voor gekozen omdat een locatie die gevonden is via een zoekactie waarschijnlijk niet op loopafstand ligt. Het is dan fijner als je gewoon de locatie van het zaakje te zien krijgt en daar niet naar hoeft te zoeken op de kaart. 
 
 ### Utility Modules
 #### SwiftyJSON
-SwiftyJSON vrij toegankelijke ‘library’ die gebruikt wordt om het uitpakken van JSONs makkelijker te maken. 
+Vrij toegankelijke ‘library’ die gebruikt wordt om het uitpakken van JSONs makkelijker te maken. 
 
 #### class RequestController
 Deze klasse bevat vier functies voor het verkrijgen van data uit de Foursquare API die worden aangeroepen in de ViewControllers. De functies zijn:
@@ -91,8 +93,4 @@ Wat uiteindelijk niet gelukt is, is het laten scrollen van de gehele detailweerg
 Ik heb ook wat problemen gehad met het implementeren van een refreshknop op het beginscherm. Op de een of andere manier werd de locatie niet opnieuw geladen en was de huidige locatie nooit echt nauwkeurig. Dit bleek uiteindelijk heel makkelijk op te lossen. Ik maakte gebruik van startUpdatingLocation() waardoor de locatie blijft verversen en de eerste de beste locatie wordt gebruikt door de app (vaak niet zo nauwkeurig). Nu gebruik ik requestLocation() die de locatie ophaalt, wacht tot de locatie nauwkeurig genoeg is en dan die locatie beschikbaar maakt. Dit duurt iets langer, maar gebruikt uiteindelijk minder energie en is nauwkeuriger. 
 
 ## Verdediging
-Mijn eindproduct wijkt uiteindelijk niet veel af van wat ik oorspronkelijk wilde doen. Wat vooral verandert is, is de implementatie van sommige functionaliteit en de UI. De functionaliteit is daar echter niet door verandert. 
-
-De aanpassingen in de UI zijn heel duidelijk. Ik heb er voor gekozen om een ander kleurenschema te gebruiken en ik heb het uiterlijk van de detailpagina aangepast. In het oude ontwerp zag het er heel erg uit alsof er meerdere afbeeldingen beschikbaar waren, terwijl het nu duidelijk is dat er maar één afbeelding is. 
-
-Als ik meer tijd had gehad, was ik waarschijnlijk meer mogelijkheden voor het verfijnen van zoekopdrachten gaan implementeren. Daarnaast zou ik nog wel wat meer mogelijkheden willen implementeren voor het bekijken van meer foto’s.
+Mijn eindproduct wijkt uiteindelijk niet veel af van wat ik oorspronkelijk wilde doen. Wat vooral verandert is, is de implementatie van sommige functionaliteit en de UI. De functionaliteit is daar echter niet door verandert. De aanpassingen in de UI zijn heel duidelijk. Ik heb er voor gekozen om een ander kleurenschema te gebruiken en ik heb het uiterlijk van de detailpagina aangepast. In het oude ontwerp zag het er heel erg uit alsof er meerdere afbeeldingen beschikbaar waren, terwijl het nu duidelijk is dat er maar één afbeelding is. Als ik meer tijd had gehad, was ik waarschijnlijk meer mogelijkheden voor het verfijnen van zoekopdrachten gaan implementeren. Daarnaast zou ik nog wel wat meer mogelijkheden willen implementeren voor het bekijken van meer foto’s.
