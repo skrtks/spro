@@ -9,7 +9,7 @@ Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaak
 ## Technische aspecten
 ### Globaal overzicht
 
-De app is onderverdeelt in vier view controllers. De ‘HomeViewController’ is het eerste scherm waar de gebruikers terecht komt na het openen van de app. Op dit scherm zijn de drie beste koffiezaakjes in de buurt te zien. Daarnaast is zoekbalk waarmee de gebruiker op de andere locatie kan zoeken. In de bijbehorende klasse is dan ook alle code ondergebracht die nodig is om dit scherm te laten zien en om interactie met de UI elementen te verwerken. 
+De app is onderverdeelt in vier view controllers die hieronder kort worden beschreven.  
 
 - __class DetailViewController:__ alle code die nodig is om het detailscherm te laten zien. Dit scherm bevat meer informatie over een koffiezaak die is geselecteerd op het beginscherm. Vanuit deze view is het mogelijk om de MapView te bereiken.
 
@@ -19,7 +19,9 @@ De app is onderverdeelt in vier view controllers. De ‘HomeViewController’ is
 
 - __class RequestController:__ staat alle code die nodig is om te communiceren met de API van Foursquare. 
 
-In de onderstaande alinea’s zal een uitgebreid overzicht gegeven worden van de code in de verschillende klassen. 
+- __Map Instances:__ in deze map staan vier custom cellen en een custom map annotation.
+
+In de onderstaande alinea’s wordt een uitgebreider overzicht gegeven van de code in de verschillende klassen. 
 
 ### View Controllers
 #### class HomeViewController
