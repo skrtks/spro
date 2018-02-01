@@ -1,14 +1,13 @@
 # Spro (espresso)
-Door Sam Kortekaas.
+Copyright (c) 2018, Sam Kortekaas
+All rights reserved.
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/skrtks/spro?branch=master)](https://bettercodehub.com/)
+
 
 ## Beschrijving
 
 Deze app laat op een overzichtelijke manier de beste drie (specialty) koffiezaakjes op loopafstand van je huidige locatie zien, zodat je makkelijk een keuze kunt maken. 
-
-## Gebruik
-Om de app te gebruiken moet je er voor zorgen dat je een actieve internetverbinding hebt en locatievoorzieningen ingeschakeld zijn.
 
 ## Version 
 Version 1.0
@@ -30,8 +29,8 @@ Apparaten met IOS 11 of hoger. iPad wordt niet ondersteunt.
 
 ## Contact
 
-Sam Kortekaas
-Mail: samkortekaas1@gmail.com
+- Sam Kortekaas
+- Mail: samkortekaas1@gmail.com
 
 ## Screenshots
 
